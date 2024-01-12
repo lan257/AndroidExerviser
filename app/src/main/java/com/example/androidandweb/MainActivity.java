@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String PUEmail=email.getText().toString();
             String PUPassword=password.getText().toString();
             privateUser pu=new privateUser(PUEmail,PUPassword);
-
+            String spu = pu.toJsonString();
             //发送http请求，需要：url,数据，其中数据包含Private{email,password}
             String url = "/login";
             Toast.makeText(MainActivity.this,""+url+pu.toString(),Toast.LENGTH_SHORT).show();
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            url = packageURL.getUrl(url);
 
             // 调用方法发送POST请求
-            postNoJwt.sendPostRequest(url, pu, new postNoJwt.OnResultListener() {
+            postNoJwt.sendPostRequest(url, spu, new postNoJwt.OnResultListener() {
                 public void onResult(Result result) {
                     // 处理返回的Result对象
                     if (result != null) {

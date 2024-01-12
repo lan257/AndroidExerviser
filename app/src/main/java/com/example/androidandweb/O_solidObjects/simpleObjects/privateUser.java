@@ -1,5 +1,7 @@
 package com.example.androidandweb.O_solidObjects.simpleObjects;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.Data;
 
 @Data
@@ -11,5 +13,14 @@ public class privateUser {
     public privateUser(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+    public String toJsonString() {
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
