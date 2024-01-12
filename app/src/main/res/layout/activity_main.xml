@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    tools:ignore="ExtraText">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/AAWLogin"
+        android:textSize="40sp"
+        android:gravity="center"/>
+        <!--居中放置-->
+    <ImageView
+        android:id="@+id/imgLogin"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/no"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="UselessParent">
+    <TextView
+        android:id="@+id/textEmailLogin"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/text_email_login" />
+
+        <EditText
+            android:id="@+id/editTextEmailAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:autofillHints=""
+            android:ems="30"
+            android:hint="@string/邮箱提示信息"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="UselessParent">
+        <TextView
+            android:gravity="center"
+            android:id="@+id/textPasswordLogin"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="@string/TextLoginPassword" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/密码提示信息"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="TextFields" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <CheckBox
+            android:id="@+id/ARemember"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/remember"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <CheckBox
+            android:id="@+id/AAuto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/Auto"
+            android:gravity="center" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/AAWLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/AAWLogin"
+        tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
+
+
+    <CheckBox
+        android:id="@+id/allowAll"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="@string/allowAll"
+       />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        tools:ignore="UselessParent">
+        <TextView
+            android:id="@+id/TextSignIn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/textSignIn"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            />
+
+        <TextView
+            android:id="@+id/TextForget"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/textForget"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/blue"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

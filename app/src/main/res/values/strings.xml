@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">AndroidAndWeb</string>
+    <string name="text_email_login">邮箱:</string>
+    <string name="邮箱提示信息">请输入邮箱</string>
+    <string name="TextLoginPassword">密码:</string>
+    <string name="密码提示信息">请输入密码</string>
+    <string name="AAWLogin">登录</string>
+    <string name="remember">记住密码</string>
+    <string name="Auto">自动登录</string>
+    <string name="allowAll">我已知情和同意《关于AAW应用的相关个人隐私的相关规定》和《关于AAW应用的版权保护的相关规定》的规定</string>
+    <string name="textSignIn">没有账号，点击注册</string>
+    <string name="textForget">忘记密码</string>
+</resources>
