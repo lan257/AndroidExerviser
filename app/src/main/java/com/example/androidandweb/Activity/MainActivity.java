@@ -12,16 +12,21 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.androidandweb.MyApp;
 import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
 import com.example.androidandweb.O_solidObjects.simpleObjects.privateUser;
+import com.example.androidandweb.Q_sql.mySql;
 import com.example.androidandweb.R;
 import com.example.androidandweb.http.postNoJwt;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+
+    private mySql MyApp;
     // 获取SharedPreferences对象，参数为文件名和访问模式
-    SharedPreferences sharedPreferences = MyApp.getSharedPreferences();
-    SharedPreferences.Editor editor = sharedPreferences.edit();
+    SharedPreferences sharedPreferences = MyApp.getSharedPreferences("LocalState");//本机状态文件
+    SharedPreferences.Editor LocalState = sharedPreferences.edit();
+
+
     postNoJwt postNoJwt;
 int isLogin;
     @Override
@@ -48,8 +53,8 @@ int isLogin;
         if(v.getId()==R.id.updateVid){
             TextView Vid=findViewById(R.id.textVid);
             String vid=Vid.getText().toString();
-            editor.putString("vid", vid);
-            editor.apply();
+            LocalState.putString("vid", vid);
+            LocalState.apply();
             Toast.makeText(MainActivity.this, "更新成功", Toast.LENGTH_SHORT).show();
         }
         if(v.getId()==R.id.textVid){
@@ -89,8 +94,8 @@ int isLogin;
 //                    Toast.makeText(MainActivity.this, result.msg, Toast.LENGTH_SHORT).show();
                     if(result.iu!=0){//登陆成功
                     //将jwt存入键值对存储
-                    editor.putString("token", result.data.toString());
-                    editor.apply();
+                    LocalState.putString("token", result.data.toString());
+                        LocalState.apply();
 //                    String jwt=sharedPreferences.getString("token", "none");//读取token
                     Toast.makeText(MainActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
 
@@ -99,18 +104,18 @@ int isLogin;
 
                     //存储登录信息
                         if(remember.isChecked()){
-                            editor.putString("remember","true");
-                            editor.putString("email",PUEmail);
-                            editor.putString("password",PUPassword);
-                            editor.apply();
+                            LocalState.putString("remember","true");
+                            LocalState.putString("email",PUEmail);
+                            LocalState.putString("password",PUPassword);
+                            LocalState.apply();
                             if (auto.isChecked()){
-                                editor.putString("auto","true");
-                                editor.apply();
-                            }else {editor.putString("auto","false");
-                            editor.apply();}
+                                LocalState.putString("auto","true");
+                                LocalState.apply();
+                            }else {LocalState.putString("auto","false");
+                                LocalState.apply();}
                         }else {
-                            editor.putString("remember","false");
-                            editor.apply();
+                            LocalState.putString("remember","false");
+                            LocalState.apply();
                         }
                         isLogin=1;
                         Intent intent=new Intent(MainActivity.this, index.class);
@@ -144,7 +149,7 @@ int isLogin;
             String AUTO=sharedPreferences.getString("auto", "");
             if(AUTO.equals("true")){
                 auto.setChecked(true);
-//                Thread.sleep(5000);
+
                     // 在触发登录前等待5秒
                     new Handler().postDelayed(new Runnable() {
                         @Override

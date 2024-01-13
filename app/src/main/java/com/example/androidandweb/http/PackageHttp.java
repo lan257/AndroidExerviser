@@ -1,14 +1,10 @@
 package com.example.androidandweb.http;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.androidandweb.MyApp;
+import com.example.androidandweb.Q_sql.mySql;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SuppressLint("NotConstructor")
@@ -17,8 +13,9 @@ public class PackageHttp {
     String data;
 
     public PackageHttp( String url, Object object) {
-
-        SharedPreferences sharedPreferences = MyApp.getSharedPreferences();
+        mySql mySql = null;
+        // 获取SharedPreferences对象，参数为文件名和访问模式
+        SharedPreferences sharedPreferences = mySql.getSharedPreferences("LocalState");//本机状态文件
         String Vid=sharedPreferences.getString("vid", "none");
         this.vid = Vid+"/aaw"+url;
         Log.i("",this.vid);
