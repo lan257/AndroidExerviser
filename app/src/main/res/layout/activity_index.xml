@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.index"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        tools:ignore="MissingConstraints,UselessParent">
+
+        <ImageView
+            android:id="@+id/userImg"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+
+            android:contentDescription="@string/加载失败"
+            android:src="@drawable/illust_101645125_20230228_235554"/>
+
+        <EditText
+            android:id="@+id/textVid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/selectText"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="TextFields,VisualLintTextFieldSize" />
+        <Button
+            android:id="@+id/updateVid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_select"
+            tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/这是主页"
+    />
+</LinearLayout>

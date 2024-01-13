@@ -12,4 +12,11 @@
     <string name="textForget">忘记密码</string>
     <string name="vid">请输入最新线路</string>
     <string name="updateVid">更新</string>
+    <string name="selectText">搜索你喜欢的电视剧</string>
+    <string name="button_select">搜索</string>
+    <string name="加载失败">加载失败</string>
+    <string name="这是主页">这是主页</string>
+    <string name="注册">注册</string>
+    <string name="昵称">昵称:</string>
+    <string name="请输入昵称">请输入昵称</string>
 </resources>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.MainActivity"
+    android:orientation="vertical"
+    tools:ignore="ExtraText">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/注册"
+        android:textSize="40sp"
+        android:gravity="center"/>
+    <!--居中放置-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/no"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="UselessParent">
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/昵称" />
+
+        <EditText
+            android:id="@+id/TextNikeName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:autofillHints=""
+            android:ems="30"
+            android:hint="@string/请输入昵称"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="UselessParent">
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/text_email_login" />
+
+        <EditText
+            android:id="@+id/editTextEmailAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:autofillHints=""
+            android:ems="30"
+            android:hint="@string/邮箱提示信息"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="UselessParent">
+        <TextView
+            android:gravity="center"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="@string/TextLoginPassword" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/密码提示信息"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="TextFields" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/AAWLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/注册"
+        tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
+
+
+    <CheckBox
+        android:id="@+id/allowAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/allowAll" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="UselessParent">
+
+        <EditText
+            android:id="@+id/textVid"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_weight="5"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/vid"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="TextFields" />
+        <Button
+            android:id="@+id/updateVid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/updateVid"
+            tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
+    </LinearLayout>
+</LinearLayout>
