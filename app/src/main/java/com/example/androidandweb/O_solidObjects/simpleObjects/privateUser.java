@@ -14,13 +14,13 @@ public class privateUser {
         this.email = email;
         this.password = password;
     }
-    public String toJsonString() {
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.writeValueAsString(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    public String toJsonString() {
+//        try {
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            return objectMapper.writeValueAsString(this);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }

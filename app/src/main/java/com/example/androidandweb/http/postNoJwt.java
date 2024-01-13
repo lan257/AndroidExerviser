@@ -25,13 +25,12 @@ public class postNoJwt {
         void onResult(Result result);
     }
 
-    public static void sendPostRequest(String url, String data, OnResultListener listener) {
-        // 创建URL对象
-            String vid="https://cf6d-240e-43d-4108-47f-c0fb-f5f8-fd6-6951.ngrok-free.app";//vid需要改成变量，app前端可以设置。
-            PackageURL packageURL=new PackageURL(vid);
-            url = packageURL.getUrl(url);
-            Log.i("测试",url);
-        new PostTask(url, data, listener).execute();
+    public static void sendPostRequest(String url, Object data, OnResultListener listener) {
+
+            PackageHttp packageHttp=new PackageHttp(url,data);
+            Log.i("测试",""+packageHttp);
+
+        new PostTask(packageHttp.vid, packageHttp.data, listener).execute();
     }
 
     private static class PostTask extends AsyncTask<Void, Void, Result> {

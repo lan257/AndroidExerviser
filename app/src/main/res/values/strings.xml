@@ -10,4 +10,6 @@
     <string name="allowAll">我已知情和同意《关于AAW应用的相关个人隐私的相关规定》和《关于AAW应用的版权保护的相关规定》的规定</string>
     <string name="textSignIn">没有账号，点击注册</string>
     <string name="textForget">忘记密码</string>
+    <string name="vid">请输入最新线路</string>
+    <string name="updateVid">更新</string>
 </resources>
