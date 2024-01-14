@@ -20,15 +20,13 @@ import com.example.androidandweb.http.postNoJwt;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-
-    private mySql MyApp;
     // 获取SharedPreferences对象，参数为文件名和访问模式
-    SharedPreferences sharedPreferences = MyApp.getSharedPreferences("LocalState");//本机状态文件
+    SharedPreferences sharedPreferences = mySql.getSharedPreferences("LocalState");//本机状态文件
     SharedPreferences.Editor LocalState = sharedPreferences.edit();
 
 
     postNoJwt postNoJwt;
-int isLogin;
+    int isLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         isLogin=0;
@@ -42,6 +40,8 @@ int isLogin;
         Vid.setOnClickListener(this);
         TextView signIn=findViewById(R.id.TextSignIn);
         signIn.setOnClickListener(this);
+        TextView test=findViewById(R.id.TextForget);
+        //test.setOnClickListener(this);
         loginAuto();
     }
 //按钮事件判定
@@ -65,6 +65,11 @@ int isLogin;
             isLogin=1;
             Intent sign=new Intent(MainActivity.this, signIn.class);
             startActivity(sign);
+        }
+        if (v.getId() == R.id.TextForget){
+            isLogin=1;
+            Intent test=new Intent(MainActivity.this, sqlTest.class);
+            startActivity(test);
         }
     }
 

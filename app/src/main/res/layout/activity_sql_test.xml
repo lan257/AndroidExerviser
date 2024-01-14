@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.sqlTest"
+    android:orientation="vertical">
+<Button
+    android:id="@+id/I"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/增加数据"
+    tools:ignore="MissingConstraints" />
+    <Button
+        android:id="@+id/S"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/查找数据"
+        tools:ignore="MissingConstraints" />
+    <Button
+    android:id="@+id/U"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/更新数据"
+    tools:ignore="MissingConstraints" />
+    <Button
+    android:id="@+id/D"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/删除数据"
+    tools:ignore="MissingConstraints" />
+
+
+</LinearLayout>

@@ -2,6 +2,8 @@ package com.example.androidandweb.O_solidObjects.simpleObjects;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.Objects;
+
 import lombok.Data;
 
 @Data
@@ -14,13 +16,21 @@ public class privateUser {
         this.email = email;
         this.password = password;
     }
-//    public String toJsonString() {
-//        try {
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            return objectMapper.writeValueAsString(this);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    void update(privateUser wen){
+        this.email= wen.email==null ?this.email: wen.email;
+        this.password= wen.password==null ?this.password: wen.password;
+    }
+    boolean select(privateUser wen){
+        if (!Objects.equals(this.uid, wen.uid)&&wen.uid!=0){
+            return false;
+        }
+        if (!Objects.equals(this.email, wen.email)&&wen.email!=null){
+            return false;
+        }
+        if (!Objects.equals(this.password, wen.password)&&wen.password!=null){
+            return false;
+        }
+        return true;
+    }
+
 }

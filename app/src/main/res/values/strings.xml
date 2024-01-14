@@ -19,4 +19,9 @@
     <string name="注册">注册</string>
     <string name="昵称">昵称:</string>
     <string name="请输入昵称">请输入昵称</string>
+    <string name="在本地同步执行数据">在本地同步执行数据</string>
+    <string name="增加数据">增加数据</string>
+    <string name="查找数据">查找数据</string>
+    <string name="更新数据">更新数据</string>
+    <string name="删除数据">删除数据</string>
 </resources>
