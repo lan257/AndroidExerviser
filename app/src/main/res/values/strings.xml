@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AndroidAndWeb</string>
+    <string name="app_name">缘风</string>
     <string name="text_email_login">邮箱:</string>
     <string name="邮箱提示信息">请输入邮箱</string>
     <string name="TextLoginPassword">密码:</string>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:padding="10dp"
+    android:background="@color/blue"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        tools:ignore="UselessParent">
+    <ImageView
+
+        android:id="@+id/userImg"
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        android:contentDescription="@string/加载失败"
+        android:src="@drawable/illust_101645125_20230228_235554" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="这是昵称" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="这是email" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
