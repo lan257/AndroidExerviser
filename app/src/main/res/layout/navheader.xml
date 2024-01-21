@@ -12,7 +12,7 @@
         tools:ignore="UselessParent">
     <ImageView
 
-        android:id="@+id/userImg"
+        android:id="@+id/userImger"
         android:layout_width="100dp"
         android:layout_height="75dp"
         android:contentDescription="@string/加载失败"
@@ -24,14 +24,15 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/user_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="这是昵称" />
+                android:text="@string/user_nickname" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="这是email" />
+                android:text="@string/user_toall" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

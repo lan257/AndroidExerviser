@@ -4,18 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity"
-    android:orientation="vertical"
-    tools:ignore="ExtraText">
-
-
+    tools:context=".Activity.videoSubmit"
+    android:orientation="vertical">
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/注册"
-        android:textSize="70sp"
+        android:text="@string/上传或编辑"
+        android:textSize="40sp"
         android:gravity="center"/>
-
     <View
         android:layout_width="0dp"
         android:layout_height="30dp"/>
@@ -26,23 +23,24 @@
         tools:ignore="UselessParent">
 
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:gravity="center"
 
-            android:text="头像" />
+            android:text="视频封面" />
 
         <ImageView
             android:id="@+id/img"
             android:layout_width="0dp"
             android:layout_height="50dp"
-android:layout_weight="1"
+            android:layout_weight="1"
             android:src="@drawable/illust_106257046_20230403_090615" />
+
         <Button
-            android:id="@+id/selectImg"
+            android:id="@+id/selectVImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="更换头像"/>
+            android:text="更换视频封面"/>
     </LinearLayout>
 
     <LinearLayout
@@ -52,18 +50,18 @@ android:layout_weight="1"
 
         <TextView
             android:gravity="center"
-            android:layout_width="70dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/昵称" />
+            android:text="视频名称" />
 
         <EditText
-            android:id="@+id/TextNickName"
+            android:id="@+id/vName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:autofillHints=""
             android:ems="30"
-            android:hint="@string/请输入昵称"
+            android:hint="请输入视频名称"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:textColorHint="#546E7A" />
@@ -74,20 +72,19 @@ android:layout_weight="1"
         android:layout_height="70dp"
         tools:ignore="UselessParent">
         <TextView
-            android:layout_width="70dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/text_email_login" />
+            android:text="视频简介" />
 
         <EditText
-            android:id="@+id/editTextEmailAddress"
+            android:id="@+id/vIntro"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:autofillHints=""
             android:ems="30"
-            android:hint="@string/邮箱提示信息"
-            android:inputType="textEmailAddress"
+            android:hint="请输入视频简介"
             android:minHeight="48dp"
             android:textColorHint="#546E7A" />
 
@@ -98,19 +95,18 @@ android:layout_weight="1"
         tools:ignore="UselessParent">
         <TextView
             android:gravity="center"
-            android:layout_width="70dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="@string/TextLoginPassword" />
+            android:text="视频资源" />
 
         <EditText
-            android:id="@+id/editTextPassword"
+            android:id="@+id/vUrl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:autofillHints=""
             android:ems="10"
-            android:hint="@string/密码提示信息"
-            android:inputType="textPassword"
+            android:hint="请输入视频url（暂不支持上传本地资源）"
             android:minHeight="48dp"
             android:textColorHint="#546E7A"
             tools:ignore="TextFields" />
@@ -119,43 +115,20 @@ android:layout_weight="1"
 
 
     <Button
-        android:id="@+id/AAWSign"
+        android:id="@+id/AAWVSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/注册"
+        android:text="上传视频资源"
         tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
 
-
-    <CheckBox
-        android:id="@+id/allowAll"
+    <Button
+        android:id="@+id/AAWVUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checked="true"
-        android:text="@string/allowAll" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        tools:ignore="UselessParent">
-
-        <EditText
-            android:id="@+id/textVid"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            android:layout_weight="5"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="@string/vid"
-            android:minHeight="48dp"
-            android:textColorHint="#546E7A"
-            tools:ignore="TextFields" />
-        <Button
-            android:id="@+id/updateVid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/updateVid"
-            tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
-    </LinearLayout>
+        android:text="资源修正"
+        android:visibility="gone"
+        tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -166,17 +139,29 @@ android:layout_weight="1"
             android:layout_height="0dp"
             android:layout_weight="1" />
         <CheckBox
-            android:id="@+id/allowSp"
+            android:id="@+id/showName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:layout_weight="1.3"
-            android:text="@string/在本地同步执行数据"/>
+            android:layout_weight="2"
+            android:text="匿名发布"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <CheckBox
+            android:id="@+id/allowChange"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="允许修改"
+            android:gravity="center" />
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />
     </LinearLayout>
-
 
 </LinearLayout>

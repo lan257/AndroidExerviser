@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <View
+        android:layout_width="0dp"
+        android:layout_height="10dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp"/>
+        <ImageView
+    android:id="@+id/list_user_img"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+            android:src="@drawable/illust_101645125_20230228_235554"
+    />
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp"/>
+        <TextView
+            android:id="@+id/list_user_nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="憨憨"
+            android:textSize="25dp" />
+        <View
+            android:layout_width="20dp"
+            android:layout_height="0dp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/list_user_email"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="center"-->
+<!--            android:text="123@user.com"-->
+<!--            android:textSize="25dp" />-->
+    </LinearLayout>
+
+</LinearLayout>

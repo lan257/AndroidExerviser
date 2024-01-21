@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -13,7 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
-import com.example.androidandweb.O_solidObjects.simpleObjects.privateUser;
+import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.Q_sql.mySql;
 import com.example.androidandweb.R;
 import com.example.androidandweb.http.postNoJwt;
@@ -85,10 +86,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView password=findViewById(R.id.editTextPassword);
         String PUEmail=email.getText().toString();
         String PUPassword=password.getText().toString();
-        privateUser pu=new privateUser(PUEmail,PUPassword);
+        user pu=new user(PUEmail,PUPassword);
         //发送http请求，需要：url,数据，其中数据包含Private{email,password}
         String url = "/login";
 
+        Log.i("触发",pu.toString());
         // 调用方法发送POST请求
         postNoJwt.sendPostRequest(url, pu, new postNoJwt.OnResultListener() {
             public void onResult(Result result) {
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         isLogin=1;
                         Intent intent=new Intent(MainActivity.this, index.class);
                         startActivity(intent);
-                        //跳转主页，待做
+                        //跳转主页
                     }
 
                     // 还可以通过result.getData()获取数据

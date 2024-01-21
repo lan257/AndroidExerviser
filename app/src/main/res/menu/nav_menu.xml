@@ -14,6 +14,12 @@
     <item
         android:id="@+id/select4"
         android:title="浏览记录"/>
+    <item
+        android:id="@+id/selectUser"
+        android:title="查询用户"/>
+    <item
+        android:id="@+id/selectVideoSubmit"
+        android:title="上传视频资源"/>
 
 </group>
 
