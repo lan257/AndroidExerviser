@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.videoDetail"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="作品详情"
+        android:textSize="50dp"
+        android:gravity="center"
+        tools:ignore="MissingConstraints" />
+    <View
+        android:layout_width="0dp"
+        android:layout_height="50dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/VSimg"
+            android:layout_width="162dp"
+            android:layout_height="200dp"
+            android:src="@drawable/illust_106257046_20230403_090615" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+            android:id="@+id/VSname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="作品名称：name"
+        android:textSize="20dp"
+        tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/VSintro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="简介：简介详情"
+            /></LinearLayout>
+</LinearLayout>
+
+    <ListView
+        android:id="@+id/VSmailShow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:rotationX="0" />
+    <Button
+        android:id="@+id/addVSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加单项资源"
+        tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
+</LinearLayout>

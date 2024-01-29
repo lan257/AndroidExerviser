@@ -97,7 +97,7 @@ public class postJwt {
                     connection.disconnect();
                     String Forbidden= connection.getResponseMessage();
                     // 返回一个错误的Result，提供更多信息
-                    return new Result(0, "HTTP POST request failed. Response Code: " + responseCode, "Forbidden: " + Forbidden);
+                    return new Result(0, "HTTP POST request failed. Response Code: " +"Forbidden: ", responseCode);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

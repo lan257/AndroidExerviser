@@ -13,8 +13,8 @@ public class video {
     String vName;
     @SerializedName("vintro")
     String vIntro="暂无";
-    @SerializedName("vurl")
-    String vUrl="暂无";
+//    @SerializedName("vurl")
+//    String vUrl="暂无";
     @SerializedName("vcreate")
     String vCreate;
     @SerializedName("vchange")

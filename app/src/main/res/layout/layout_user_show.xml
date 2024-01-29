@@ -17,7 +17,7 @@
     android:id="@+id/list_user_img"
     android:layout_width="50dp"
     android:layout_height="50dp"
-            android:src="@drawable/illust_101645125_20230228_235554"
+
     />
         <View
             android:layout_width="20dp"

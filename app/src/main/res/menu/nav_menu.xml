@@ -20,6 +20,9 @@
     <item
         android:id="@+id/selectVideoSubmit"
         android:title="上传视频资源"/>
+    <item
+        android:id="@+id/logout"
+        android:title="退出登录"/>
 
 </group>
 

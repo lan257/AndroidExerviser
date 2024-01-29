@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class videoSubmit extends AppCompatActivity implements View.OnClickListen
     int imgIs=0;
     Uri selectedImageUri;
     String imgUrl5;
+    int thingIs=0;
+    int vid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +50,11 @@ public class videoSubmit extends AppCompatActivity implements View.OnClickListen
         Intent intent=getIntent();
         String thing=intent.getStringExtra("thing");
         if(Objects.equals(thing, "change")){
+            imgIs=2;
             submit.setVisibility(View.GONE);
             update.setVisibility(View.VISIBLE);
-            int vid=intent.getIntExtra("vid",0);
-            Log.i("显示资源",""+vid);
+            thingIs=1;
+            vid=intent.getIntExtra("vid",1);
             vShow(vid);
             TextView title=findViewById(R.id.title);
             title.setText("申请修正资源");
@@ -74,10 +78,10 @@ public class videoSubmit extends AppCompatActivity implements View.OnClickListen
                         v = new Gson().fromJson(video, video.class);
                         TextView vName=findViewById(R.id.vName);
                         TextView vIntro=findViewById(R.id.vIntro);
-                        TextView vUrl=findViewById(R.id.vUrl);
+//                        TextView vUrl=findViewById(R.id.vUrl);
                         vName.setText(v.getVName());
                         vIntro.setText(v.getVIntro());
-                        vUrl.setText(v.getVUrl());
+//                        vUrl.setText(v.getVUrl());
                         ImageView img =findViewById(R.id.img);
                         PackageHttp packageHttp=new PackageHttp();
                         String imgUrl= packageHttp.toImgUrl(v.getImg()) ;
@@ -99,25 +103,27 @@ public class videoSubmit extends AppCompatActivity implements View.OnClickListen
             openGallery();
         }
         if (v.getId() == R.id.AAWVUpdate) {
-            imgIs=2;
             VSubmit("/vImgSubmit","/vUpdate");
             //修正视频资源
         }
     }
 
     public void VSubmit(String url1,String url2 ){
-        TextView vName=findViewById(R.id.vName);
+        EditText vName=findViewById(R.id.vName);
         v.setVName(vName.getText().toString());
         TextView vIntro=findViewById(R.id.vIntro);
-        if(vIntro.getText().toString()!=null){
+        if(!vIntro.getText().toString().equals("")){
         v.setVIntro(vIntro.getText().toString());}
         CheckBox allow=findViewById(R.id.allowChange);
         if(allow.isChecked()){v.setIns(1);}else {v.setIns(0);}
         CheckBox uid=findViewById(R.id.showName);
-        if(uid.isChecked()){v.setUid(0);}
-        TextView vUrl=findViewById(R.id.vUrl);
-        if(vUrl.getText().toString()!=null){
-            v.setVUrl(vUrl.getText().toString());}
+        if(uid.isChecked()){v.setUid(1);}
+        if (thingIs==1){
+            v.setVid(vid);
+        }
+//        TextView vUrl=findViewById(R.id.vUrl);
+//        if(vUrl.getText().toString()!=null){
+//            v.setVUrl(vUrl.getText().toString());}
         if (imgIs==1){
             v.setImg(getRealPathFromURI(selectedImageUri));
             FileUploadTask fileUploadTask = new FileUploadTask(url1,v.getImg());

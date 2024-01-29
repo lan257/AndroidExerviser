@@ -1,43 +1,43 @@
 package com.example.androidandweb.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
 import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.O_solidObjects.video;
+import com.example.androidandweb.Q_sql.mySql;
 import com.example.androidandweb.R;
-import com.example.androidandweb.adapter.userAd;
 import com.example.androidandweb.adapter.videoAd;
 import com.example.androidandweb.http.PackageHttp;
 import com.example.androidandweb.http.postJwt;
-import com.google.android.exoplayer2.MediaItem;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
-
-import lombok.NonNull;
+import java.util.Objects;
 
 public class index extends AppCompatActivity implements View.OnClickListener {
     private DrawerLayout index;
@@ -50,6 +50,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
         index=findViewById(R.id.index);
+        hello();
         getUser();
         ImageView mi=findViewById(R.id.userImg);
         mi.setOnClickListener(this);
@@ -62,6 +63,24 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         SV.setOnClickListener(this);
 //        ListView.setOnItemClickListener(this);
 
+    }
+
+    private void hello() {
+        LocalTime currentTime = LocalTime.now();
+        int hour = currentTime.getHour();
+        TextView hello=findViewById(R.id.hello);
+        hello.setVisibility(View.VISIBLE);
+        if (hour>0&&hour<6){
+            hello.setText("深夜，现在的夜，熬的只是还未改变的习惯");
+        }if (hour>=6&&hour<10){
+            hello.setText("早安，清晨熹微的阳光，是你在微笑吗？");
+        }if (hour>=10&&hour<16){
+            hello.setText("午好，伴随着熟悉的乐曲，聆听着动人的旋律");
+        }if (hour>=16&&hour<20){
+            hello.setText("夕暮，似清风醉晚霞，不经意间盈笑回眸");
+        }if (hour>=20){
+            hello.setText("夜晚，一个安静的角落，静静的聆听夜曲");
+        }
     }
 
 //        SimpleExoPlayer player = new SimpleExoPlayer.Builder(this).build();
@@ -100,15 +119,15 @@ public class index extends AppCompatActivity implements View.OnClickListener {
     public void selectMenu(int itemId) {
         if(itemId==R.id.select1){
             Log.i("","我点击了选项一");
-            Toast.makeText(index.this, "选项一", Toast.LENGTH_SHORT).show();
+            Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
         }
 
         if(itemId==R.id.select2){Log.i("","我点击了选项二");
-            Toast.makeText(index.this, "选项二", Toast.LENGTH_SHORT).show();
+            Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
         }if(itemId==R.id.select3){
-            Toast.makeText(index.this, "选项三", Toast.LENGTH_SHORT).show();
+            Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
         }if(itemId==R.id.select4){
-            Toast.makeText(index.this, "选项四", Toast.LENGTH_SHORT).show();
+            Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
         }
         if(itemId==R.id.selectUser){
             Intent intent=new Intent(index.this, selectUser.class);
@@ -120,6 +139,16 @@ public class index extends AppCompatActivity implements View.OnClickListener {
             startActivity(intent);
             Toast.makeText(index.this, "上传视频资源", Toast.LENGTH_SHORT).show();
         }
+        if (itemId==R.id.logout){
+            logout();
+            toLogin();
+        }
+    }
+    public void logout(){
+        SharedPreferences sharedPreferences = mySql.getSharedPreferences("LocalState");//本机状态文件
+        SharedPreferences.Editor LocalState = sharedPreferences.edit();
+        LocalState.putString("token", "");
+        LocalState.apply();
     }
     public void AAWS(){
         EditText name=findViewById(R.id.videoName);
@@ -142,9 +171,14 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                         Log.i("测试数据",List);
                         Type type = new TypeToken<List<video>>(){}.getType();
                         List<video> videoList = new Gson().fromJson(List, type);
+                        TextView hello=findViewById(R.id.hello);
+                        hello.setVisibility(View.GONE);
                         // 现在你可以使用userList了
                         // ...
                         Log.i("测试数据",videoList.toString());
+                        if (videoList.size()==0){
+                            Toast.makeText(index.this, "尚未收纳资源", Toast.LENGTH_SHORT).show();
+                        }
                         videoAd adapter=new videoAd(index.this, R.layout.video,videoList);
                         ListView listView=findViewById(R.id.videoShow);
                         listView.setAdapter(adapter);
@@ -168,8 +202,12 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                                 video video= videoList.get(position);
-                                    Intent intent=new Intent(index.this, videoShow.class);
-                                    intent.putExtra("vUrl",video.getVUrl());
+                                    Intent intent=new Intent(index.this, videoDetail.class);
+                                    intent.putExtra("vid",video.getVid());
+                                    intent.putExtra("VName",video.getVName());
+                                    intent.putExtra("VIntro",video.getVIntro());
+                                    Log.i("测试",""+video.getVid());
+                                    intent.putExtra("img",video.getImg());
                                     startActivity(intent);
                             }
                         });
@@ -185,23 +223,33 @@ public class index extends AppCompatActivity implements View.OnClickListener {
     public void getUser() {
         String url = "/getUserJwt";
         byte s = 0;
-        postJwt.sendPostRequest(url, s, new postJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
-                    if(result.iu!=0){
 
+            postJwt.sendPostRequest(url, s, new postJwt.OnResultListener() {
+                public void onResult(Result result) {
+                    // 处理返回的Result对象
+                    if (result != null) {
                         Log.i("个人信息1",result.iu+result.msg+result.data);
-                        String user= new Gson().toJson(result.data);
+                        if(result.iu==1){
+
+
+                            String user= new Gson().toJson(result.data);
 //                        Type type = new TypeToken<user>(){}.getType();
-                        me= new Gson().fromJson(user, user.class);
-                        Log.i("个人信息2",me.toString());
-                        Log.i("个人信息",me.toString());
-                        ImageView mi=findViewById(R.id.userImg);
-                        String imageUrl = packageHttp.toImgUrl(me.getImg());
-                        Glide.with(index).load(imageUrl).into(mi);
-                    }}else {Log.i("似乎没有信息","似乎没有得到消息");}
-            }
-        });
+                            me= new Gson().fromJson(user, user.class);
+                            Log.i("个人信息2",me.toString());
+                            Log.i("个人信息",me.toString());
+                            ImageView mi=findViewById(R.id.userImg);
+                            String imageUrl = packageHttp.toImgUrl(me.getImg());
+                            Glide.with(index.this).load(imageUrl).into(mi);
+                        }
+//                        else if ((int)result.data==401){toLogin();}
+                        else if(result.iu==0){
+                            toLogin();
+                        }}}});
+
+    }
+    public void toLogin(){
+        Toast.makeText(this, "未登录，请登录", Toast.LENGTH_SHORT).show();
+        Intent intent=new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }

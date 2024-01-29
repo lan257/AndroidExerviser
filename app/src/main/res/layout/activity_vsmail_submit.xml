@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.VSmailSubmit"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="上传单项资源"
+        android:textSize="40sp"
+        android:gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/VSimg"
+            android:layout_width="162dp"
+            android:layout_height="200dp"
+            android:src="@drawable/illust_106257046_20230403_090615" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/VSname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="作品名称：name"
+                android:textSize="20dp"
+                tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/VSintro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="简介：简介详情"
+                /></LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="名称" />
+
+        <EditText
+            android:id="@+id/VSName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:autofillHints=""
+            android:ems="30"
+            android:hint="请输入资源名称"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="DuplicateIds" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="UselessParent">
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="URL" />
+
+        <EditText
+            android:id="@+id/VSUrl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:autofillHints=""
+            android:ems="30"
+            android:hint="请输入资源地址URL"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="UselessParent">
+        <TextView
+            android:gravity="center"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="备注" />
+
+        <EditText
+            android:id="@+id/also"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="请输入备注"
+            android:minHeight="48dp"
+            android:textColorHint="#546E7A"
+            tools:ignore="TextFields" />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/AAWVSSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="上传资源"
+        tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
+
+    <Button
+        android:id="@+id/AAWVSUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="资源修正"
+        android:visibility="gone"
+        tools:ignore="DuplicateSpeakableTextCheck,VisualLintButtonSize" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <CheckBox
+            android:id="@+id/showName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="匿名发布"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <CheckBox
+            android:id="@+id/allowChange"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="允许修改"
+            android:checked="true"
+            android:gravity="center" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>

@@ -10,8 +10,8 @@ android {
         applicationId = "com.example.androidandweb"
         minSdk = 28
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 3
+        versionName = "1.2内测版"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,21 +37,20 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation("androidx.media3:media3-exoplayer-hls:1.2.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.google.android.exoplayer:exoplayer-core:2.19.1")
     implementation ("com.google.android.exoplayer:exoplayer-ui:2.19.1")
-    // https://mvnrepository.com/artifact/org.projectlombok/lombok
-//    compileOnly("org.projectlombok:lombok:1.18.24")
+    implementation ("com.google.android.exoplayer:exoplayer-hls:2.19.1")
     implementation ("org.projectlombok:lombok:1.18.22")
     annotationProcessor("org.projectlombok:lombok:1.18.22")
     implementation ("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0") // 替换为最新版本
     implementation ("com.google.code.gson:gson:2.8.9")
 
-
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    implementation ("com.fasterxml.jackson.core:jackson-core:2.12.5")
-    implementation ("com.fasterxml.jackson.core:jackson-databind:2.12.5")
+    implementation ("com.fasterxml.jackson.core:jackson-core:2.13.0")
+    implementation ("com.fasterxml.jackson.core:jackson-databind:2.13.0")
 
 }
