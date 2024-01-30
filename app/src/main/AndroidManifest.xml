@@ -19,6 +19,12 @@
         android:theme="@style/Theme.AndroidAndWeb"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.chatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.chatListActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.VSmailSubmit"
             android:exported="false" />
         <activity

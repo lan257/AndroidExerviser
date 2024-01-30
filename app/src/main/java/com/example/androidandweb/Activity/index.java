@@ -2,16 +2,13 @@ package com.example.androidandweb.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,10 +31,8 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Objects;
 
 public class index extends AppCompatActivity implements View.OnClickListener {
     private DrawerLayout index;
@@ -66,11 +61,13 @@ public class index extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void hello() {
+        Log.i("时间","你好，几点了？");
         LocalTime currentTime = LocalTime.now();
         int hour = currentTime.getHour();
+        Log.i("时间","你好，"+currentTime+"点了");
         TextView hello=findViewById(R.id.hello);
         hello.setVisibility(View.VISIBLE);
-        if (hour>0&&hour<6){
+        if (hour>=0&&hour<6){
             hello.setText("深夜，现在的夜，熬的只是还未改变的习惯");
         }if (hour>=6&&hour<10){
             hello.setText("早安，清晨熹微的阳光，是你在微笑吗？");
@@ -104,12 +101,17 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         if(v.getId()==R.id.userImg){
 
             index.openDrawer(GravityCompat.START);
-            String imageUrl = packageHttp.toImgUrl(me.getImg());
-            ImageView imageView=findViewById(R.id.userImger);
-            // 使用 Glide 或其他图片加载库加载在线图片
-            Glide.with(this).load(imageUrl).into(imageView);
-            TextView nickname=findViewById(R.id.user_nickname);
-            nickname.setText(me.getNickname());
+            try {
+                String imageUrl = packageHttp.toImgUrl(me.getImg());
+                ImageView imageView=findViewById(R.id.userImger);
+                // 使用 Glide 或其他图片加载库加载在线图片
+                Glide.with(this).load(imageUrl).into(imageView);
+                TextView nickname=findViewById(R.id.user_nickname);
+                nickname.setText(me.getNickname());
+            } catch (NullPointerException e){
+                Toast.makeText(this, "啊", Toast.LENGTH_SHORT).show();
+                getUser();
+            }
         }
         if(v.getId()==R.id.selectVideo){
             AAWS();
@@ -125,7 +127,9 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         if(itemId==R.id.select2){Log.i("","我点击了选项二");
             Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
         }if(itemId==R.id.select3){
-            Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
+            Intent intent =new Intent(index.this, chatListActivity.class);
+            startActivity(intent);
+            Toast.makeText(index.this, "私信", Toast.LENGTH_SHORT).show();
         }if(itemId==R.id.select4){
             Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
         }
@@ -220,7 +224,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
 
     }
     //获取个人基本信息
-    public void getUser() {
+    public user getUser() {
         String url = "/getUserJwt";
         byte s = 0;
 
@@ -246,6 +250,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                             toLogin();
                         }}}});
 
+        return me;
     }
     public void toLogin(){
         Toast.makeText(this, "未登录，请登录", Toast.LENGTH_SHORT).show();

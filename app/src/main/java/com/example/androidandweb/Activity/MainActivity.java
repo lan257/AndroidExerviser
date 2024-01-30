@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (v.getId() == R.id.TextForget){
             isLogin=1;
-            Intent test=new Intent(MainActivity.this, sqlTest.class);
-            startActivity(test);
+//            Intent test=new Intent(MainActivity.this, sqlTest.class);
+//            startActivity(test);
         }
     }
 

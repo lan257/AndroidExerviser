@@ -2,21 +2,12 @@ package com.example.androidandweb.http;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
-import com.example.androidandweb.O_solidObjects.user;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;

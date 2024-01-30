@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="20dp" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_width="10dp"
+        android:layout_height="0dp" />
+
+    <ImageView
+
+        android:id="@+id/youImger"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/加载失败"
+        android:visibility="visible" />
+
+    <View
+        android:layout_width="10dp"
+        android:layout_height="0dp" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/s111"
+        android:text="你好"
+        android:layout_gravity="right"
+        android:textColor="#000000" />
+        <TextView
+            android:id="@+id/msgTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="2024/1/29/21:47"
+            android:textSize="10dp"
+            tools:ignore="RtlHardcoded,TextSizeCheck" />
+</LinearLayout>
+    <View
+        android:layout_width="10dp"
+        android:layout_height="0dp" />
+
+    <ImageView
+        android:id="@+id/meImger"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/加载失败"
+        android:visibility="visible" />
+    <View
+        android:layout_width="10dp"
+        android:layout_height="0dp" />
+</LinearLayout>
+</LinearLayout>

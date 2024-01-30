@@ -27,7 +27,7 @@
     <string name="请输入用户昵称">请输入用户昵称</string>
     <string name="查询">查询</string>
     <string name="user_nickname">这是昵称</string>
-    <string name="user_toall">这是签名</string>
+    <string name="user_toall">在线</string>
     <string name="上传或编辑">上传视频资源</string>
     <string name="title_activity_main2">Leanback MainActivity2</string>
     <string name="browse_title">Videos by Your Company</string>
