@@ -50,12 +50,12 @@ public class msgAd extends ArrayAdapter<msg> {
         layoutParams.gravity = Gravity.LEFT; // 或者使用 Gravity.LEFT
         if (m.getUserIs()!=Me){
             MeImg.setVisibility(View.GONE);
-            Glide.with(context).load(this.uImg).into(YouImg);
+            Glide.with(context).load(this.uImg).circleCrop().into(YouImg);
             text.setLayoutParams(layoutParams);
             msgTime.setLayoutParams(layoutParams);
         }else {
             YouImg.setVisibility(View.GONE);
-            Glide.with(context).load(this.mImg).into(MeImg);
+            Glide.with(context).load(this.mImg).circleCrop().into(MeImg);
         }
         return view;
     }

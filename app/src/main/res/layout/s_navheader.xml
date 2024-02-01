@@ -11,9 +11,10 @@
         android:layout_height="80dp"
         tools:ignore="UselessParent">
     <ImageView
-
+        android:scaleType="centerCrop"
+        android:background="@drawable/circle_shape"
         android:id="@+id/userImger"
-        android:layout_width="100dp"
+        android:layout_width="75dp"
         android:layout_height="75dp"
         android:contentDescription="@string/加载失败"
   />
@@ -26,12 +27,16 @@
             <TextView
                 android:id="@+id/user_nickname"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
                 android:text="@string/user_nickname" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="20dp"
                 android:text="@string/user_toall" />
         </LinearLayout>
     </LinearLayout>

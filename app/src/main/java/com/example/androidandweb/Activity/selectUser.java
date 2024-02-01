@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.androidandweb.O_solidObjects.chat;
 import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
 import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.R;
@@ -65,7 +64,7 @@ public class selectUser extends AppCompatActivity implements View.OnClickListene
                         // ...
 
 
-                        userAd adapter=new userAd(com.example.androidandweb.Activity.selectUser.this, R.layout.layout_user_show,userList);
+                        userAd adapter=new userAd(com.example.androidandweb.Activity.selectUser.this, R.layout.s_layout_user_show,userList);
                         ListView listView=findViewById(R.id.userShow);
                         listView.setAdapter(adapter);
                         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -77,15 +76,6 @@ public class selectUser extends AppCompatActivity implements View.OnClickListene
                                 Intent intent=new Intent(selectUser.this, chatActivity.class);
                                 intent.putExtra("you",u.getUid());
                                 startActivity(intent);
-//                               chat chat=new chat(u.getUid());
-//                                String url1="/selectChat";
-//                                postJwt.sendPostRequest(url, s, new postJwt.OnResultListener() {
-//                                    public void onResult(Result result) {
-//                                        // 处理返回的Result对象
-//                                        if (result != null) {
-//                                            if(result.iu!=0){
-//
-//                                            }}}});
                                 return false;
                             }
                         });

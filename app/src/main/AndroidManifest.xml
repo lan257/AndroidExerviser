@@ -19,6 +19,12 @@
         android:theme="@style/Theme.AndroidAndWeb"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.SASActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.userShow"
+            android:exported="false" />
+        <activity
             android:name=".Activity.chatActivity"
             android:exported="false" />
         <activity
@@ -38,9 +44,6 @@
             android:exported="false" />
         <activity
             android:name=".Activity.selectUser"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.sqlTest"
             android:exported="false" />
         <activity
             android:name=".Activity.signIn"

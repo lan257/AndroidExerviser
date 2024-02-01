@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/AAWLogin"
+        android:background="@color/s111"
         android:textSize="70sp"
         android:gravity="center"/>
         <!--居中放置-->

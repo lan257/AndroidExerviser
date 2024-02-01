@@ -16,10 +16,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.androidandweb.O_solidObjects.VSmail;
 import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
-import com.example.androidandweb.O_solidObjects.video;
 import com.example.androidandweb.R;
 import com.example.androidandweb.adapter.VSmailAd;
-import com.example.androidandweb.adapter.videoAd;
 import com.example.androidandweb.http.PackageHttp;
 import com.example.androidandweb.http.postJwt;
 import com.google.common.reflect.TypeToken;
@@ -64,7 +62,7 @@ if(v.getId()==R.id.addVSmall){
         PackageHttp packageHttp = new PackageHttp();
         url1=packageHttp.toImgUrl(intent.getStringExtra("img"));
         ImageView img=findViewById(R.id.VSimg);
-        Glide.with(videoDetail.this).load(url1).into(img);
+        Glide.with(videoDetail.this).load(url1).circleCrop().into(img);
         TextView VSName=findViewById(R.id.VSname);
         VName="作品名称："+intent.getStringExtra("VName");
         VSName.setText(VName);
@@ -87,7 +85,7 @@ if(v.getId()==R.id.addVSmall){
                         List<VSmail> VSmailList = new Gson().fromJson(List, type);
                         // 现在你可以使用VSmailList了
                         Log.i("测试数据",VSmailList.toString());
-                        VSmailAd adapter=new VSmailAd(videoDetail.this, R.layout.v_smail,VSmailList);
+                        VSmailAd adapter=new VSmailAd(videoDetail.this, R.layout.s_vsmail,VSmailList);
                         ListView listView=findViewById(R.id.VSmailShow);
                         listView.setAdapter(adapter);
                         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

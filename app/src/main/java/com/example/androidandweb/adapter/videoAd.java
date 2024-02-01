@@ -41,7 +41,7 @@ public class videoAd extends ArrayAdapter<video> {
         String url=packageHttp.toImgUrl(v.getImg())  ;
 
         Log.i("图片", url);
-        Glide.with(context).load(url).into(img);
+        Glide.with(context).load(url).circleCrop().into(img);
 //        email.setText(u.getEmail());
         return view;
     }

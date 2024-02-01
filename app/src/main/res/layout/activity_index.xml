@@ -24,9 +24,10 @@
 
                 <ImageView
                     android:id="@+id/userImg"
-                    android:layout_width="50dp"
+                    android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:contentDescription="@string/加载失败"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/circle_shape"
                    />
 
                 <EditText
@@ -50,38 +51,27 @@
 
             </LinearLayout>
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-
-                <!--            <com.google.android.exoplayer2.ui.PlayerView-->
-                <!--                android:id="@+id/playerView"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="match_parent" />-->
-
-<!--            </LinearLayout>-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"><!--    android:layout_gravity="center"-->
 <TextView
     android:id="@+id/hello"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:visibility="visible"
     android:gravity="center"
-
+    android:text="早安，清晨熹微的阳光，是你在微笑吗？"
     />
-                <!--    android:text="早安，清晨熹微的阳光，是你在微笑吗？"-->
-                <ListView
-                    android:id="@+id/videoShow"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:rotationX="0" />
-            </LinearLayout>
-        </LinearLayout>
+
+<ListView
+    android:id="@+id/videoShow"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:rotationX="0" />
+</LinearLayout>
+
+</LinearLayout>
 
     </FrameLayout>
     <com.google.android.material.navigation.NavigationView
@@ -90,6 +80,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/nav_menu"
-        app:headerLayout="@layout/navheader"
+        app:headerLayout="@layout/s_navheader"
         tools:ignore="VisualLintBounds" />
 </androidx.drawerlayout.widget.DrawerLayout>

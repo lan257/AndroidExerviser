@@ -15,13 +15,12 @@
             android:layout_width="15dp"
             android:layout_height="match_parent"/>
     <ImageView
-
+        android:scaleType="centerCrop"
+        android:background="@drawable/circle_shape"
         android:id="@+id/youImger"
-        android:layout_width="100dp"
+        android:layout_width="75dp"
         android:layout_height="75dp"
-        android:contentDescription="@string/加载失败"
-        />
-
+        android:contentDescription="@string/加载失败"/>
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -51,12 +50,14 @@
             android:layout_width="15dp"
             android:layout_height="match_parent"/>
     </LinearLayout>
+
     <ListView
         android:id="@+id/chatShow"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:rotationX="0" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

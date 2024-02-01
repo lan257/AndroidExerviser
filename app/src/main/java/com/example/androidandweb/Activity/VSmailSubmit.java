@@ -61,7 +61,7 @@ public class VSmailSubmit extends AppCompatActivity implements View.OnClickListe
     public void start(Intent intent){
 
         ImageView img=findViewById(R.id.VSimg);
-        Glide.with(VSmailSubmit.this).load(intent.getStringExtra("img")).into(img);
+        Glide.with(VSmailSubmit.this).load(intent.getStringExtra("img")).circleCrop().into(img);
         TextView VSName=findViewById(R.id.VSname);
         VSName.setText(intent.getStringExtra("VName"));
         TextView VSIntro=findViewById(R.id.VSintro);

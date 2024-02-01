@@ -56,45 +56,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         });
         Button SV=findViewById(R.id.selectVideo);
         SV.setOnClickListener(this);
-//        ListView.setOnItemClickListener(this);
-
     }
-
-    private void hello() {
-        Log.i("时间","你好，几点了？");
-        LocalTime currentTime = LocalTime.now();
-        int hour = currentTime.getHour();
-        Log.i("时间","你好，"+currentTime+"点了");
-        TextView hello=findViewById(R.id.hello);
-        hello.setVisibility(View.VISIBLE);
-        if (hour>=0&&hour<6){
-            hello.setText("深夜，现在的夜，熬的只是还未改变的习惯");
-        }if (hour>=6&&hour<10){
-            hello.setText("早安，清晨熹微的阳光，是你在微笑吗？");
-        }if (hour>=10&&hour<16){
-            hello.setText("午好，伴随着熟悉的乐曲，聆听着动人的旋律");
-        }if (hour>=16&&hour<20){
-            hello.setText("夕暮，似清风醉晚霞，不经意间盈笑回眸");
-        }if (hour>=20){
-            hello.setText("夜晚，一个安静的角落，静静的聆听夜曲");
-        }
-    }
-
-//        SimpleExoPlayer player = new SimpleExoPlayer.Builder(this).build();
-//        PlayerView playerView = findViewById(R.id.playerView);
-//
-//// 将Player关联到PlayerView
-//        playerView.setPlayer(player);
-//
-//// 准备媒体资源
-//        MediaItem mediaItem = MediaItem.fromUri("https://sns-video-bd.xhscdn.com/spectrum/06f77ba84733159ec47e3c525fd7ca0f0eabdfb4");
-//        player.setMediaItem(mediaItem);
-//
-//// 准备播放器
-//        player.prepare();
-//
-//// 开始播放
-//      //  player.play();
 
 
     public void onClick(View v) {
@@ -105,7 +67,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                 String imageUrl = packageHttp.toImgUrl(me.getImg());
                 ImageView imageView=findViewById(R.id.userImger);
                 // 使用 Glide 或其他图片加载库加载在线图片
-                Glide.with(this).load(imageUrl).into(imageView);
+                Glide.with(this).load(imageUrl).circleCrop().into(imageView);
                 TextView nickname=findViewById(R.id.user_nickname);
                 nickname.setText(me.getNickname());
             } catch (NullPointerException e){
@@ -123,19 +85,16 @@ public class index extends AppCompatActivity implements View.OnClickListener {
             Log.i("","我点击了选项一");
             Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
         }
-
         if(itemId==R.id.select2){Log.i("","我点击了选项二");
             Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
         }if(itemId==R.id.select3){
-            Intent intent =new Intent(index.this, chatListActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(index.this, chatListActivity.class));
             Toast.makeText(index.this, "私信", Toast.LENGTH_SHORT).show();
         }if(itemId==R.id.select4){
             Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
         }
         if(itemId==R.id.selectUser){
-            Intent intent=new Intent(index.this, selectUser.class);
-            startActivity(intent);
+            startActivity(new Intent(index.this, selectUser.class));
             Toast.makeText(index.this, "查询用户", Toast.LENGTH_SHORT).show();
         }if(itemId==R.id.selectVideoSubmit){
             Intent intent=new Intent(index.this,videoSubmit.class);
@@ -146,6 +105,12 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         if (itemId==R.id.logout){
             logout();
             toLogin();
+        }
+        if (itemId==R.id.cont){
+            Intent intent=new Intent(index.this, SASActivity.class);
+            intent.putExtra("thing","submit");
+            startActivity(intent);
+            Toast.makeText(index.this, "发布活动", Toast.LENGTH_SHORT).show();
         }
     }
     public void logout(){
@@ -183,7 +148,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                         if (videoList.size()==0){
                             Toast.makeText(index.this, "尚未收纳资源", Toast.LENGTH_SHORT).show();
                         }
-                        videoAd adapter=new videoAd(index.this, R.layout.video,videoList);
+                        videoAd adapter=new videoAd(index.this, R.layout.s_video,videoList);
                         ListView listView=findViewById(R.id.videoShow);
                         listView.setAdapter(adapter);
                         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -239,11 +204,12 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                             String user= new Gson().toJson(result.data);
 //                        Type type = new TypeToken<user>(){}.getType();
                             me= new Gson().fromJson(user, user.class);
-                            Log.i("个人信息2",me.toString());
-                            Log.i("个人信息",me.toString());
                             ImageView mi=findViewById(R.id.userImg);
                             String imageUrl = packageHttp.toImgUrl(me.getImg());
-                            Glide.with(index.this).load(imageUrl).into(mi);
+                            Glide.with(index.this).load(imageUrl).circleCrop().into(mi);
+                            SharedPreferences.Editor LocalState = mySql.getSharedPreferences("LocalState").edit();;//本机状态文件
+                            LocalState.putInt("uid", me.getUid());
+                            LocalState.apply();
                         }
 //                        else if ((int)result.data==401){toLogin();}
                         else if(result.iu==0){
@@ -257,4 +223,38 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         Intent intent=new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+    private void hello() {
+        Log.i("时间","你好，几点了？");
+        LocalTime currentTime = LocalTime.now();
+        int hour = currentTime.getHour();
+        Log.i("时间","你好，"+currentTime+"点了");
+        TextView hello=findViewById(R.id.hello);
+        hello.setVisibility(View.VISIBLE);
+        if (hour>=0&&hour<6){
+            hello.setText("深夜，现在的夜，熬的只是还未改变的习惯");
+        }if (hour>=6&&hour<10){
+            hello.setText("早安，清晨熹微的阳光，是你在微笑吗？");
+        }if (hour>=10&&hour<16){
+            hello.setText("午好，伴随着熟悉的乐曲，聆听着动人的旋律");
+        }if (hour>=16&&hour<20){
+            hello.setText("夕暮，似清风醉晚霞，不经意间盈笑回眸");
+        }if (hour>=20){
+            hello.setText("夜晚，一个安静的角落，静静的聆听夜曲");
+        }
+    }
+    //        SimpleExoPlayer player = new SimpleExoPlayer.Builder(this).build();
+//        PlayerView playerView = findViewById(R.id.playerView);
+//
+//// 将Player关联到PlayerView
+//        playerView.setPlayer(player);
+//
+//// 准备媒体资源
+//        MediaItem mediaItem = MediaItem.fromUri("https://sns-video-bd.xhscdn.com/spectrum/06f77ba84733159ec47e3c525fd7ca0f0eabdfb4");
+//        player.setMediaItem(mediaItem);
+//
+//// 准备播放器
+//        player.prepare();
+//
+//// 开始播放
+//      //  player.play();
 }

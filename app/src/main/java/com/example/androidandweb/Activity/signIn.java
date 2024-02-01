@@ -79,7 +79,6 @@ public class signIn extends AppCompatActivity implements View.OnClickListener{
         String nickname=nickName.getText().toString();
         String filepath=getRealPathFromURI(selectedImageUri);
         user u=new user(nickname,PUEmail,PUPassword);
-            Log.d("File Path", filepath);
 
             //aaw,传递服务器储存
         String url="/sign";

@@ -10,8 +10,8 @@ android {
         applicationId = "com.example.androidandweb"
         minSdk = 28
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.2内测版"
+        versionCode = 4
+        versionName = "1.3内测版"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,11 +46,11 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.22")
     implementation ("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.0") // 替换为最新版本
     implementation ("com.google.code.gson:gson:2.8.9")
-
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.fasterxml.jackson.core:jackson-core:2.13.0")
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.13.0")
-
+    implementation ("androidx.recyclerview:recyclerview:1.2.1") // 使用最新版本
 }

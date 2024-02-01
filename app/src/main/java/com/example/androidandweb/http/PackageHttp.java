@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -39,7 +40,11 @@ public class PackageHttp {
         Log.i("请求url:",this.vid);
         this.data=toJson(object);
     }
-
+    public String changeFileName(String filePath,String pro, String path) {
+        File file = new File(filePath);
+        String result = "/"+path+"/"+ pro+file.getName();
+        return result;
+    }
     public String toImgUrl(String url){
         SharedPreferences sharedPreferences = mySql.getSharedPreferences("LocalState");//本机状态文件
         String Vid=sharedPreferences.getString("vid", "none");

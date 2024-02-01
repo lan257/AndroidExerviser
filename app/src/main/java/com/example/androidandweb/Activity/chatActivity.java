@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +19,6 @@ import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
 import com.example.androidandweb.O_solidObjects.simpleObjects.msg;
 import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.R;
-import com.example.androidandweb.adapter.VSmailAd;
 import com.example.androidandweb.adapter.msgAd;
 import com.example.androidandweb.http.PackageHttp;
 import com.example.androidandweb.http.postJwt;
@@ -100,21 +98,13 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
 //                            chat =new Gson().fromJson(chat1,chat.class);
                             showChat();
                             sentMsg.setText("");
-                        }}}});
-        }
-    }
-
+                        }}}});}}
     private void showChat() {
-        Log.i("你是",you.toString());
-        Log.i("我是",me.toString());
-        Log.i("聊天",chat.toString());
         List<msg> msgList=chat.getMsg();
         if (msgList.size()>45){
             msgList=msgList.subList(msgList.size()-40,msgList.size());
         }
-        Log.i("测试数据",YouImg+MeImg);
-
-        msgAd adapter=new msgAd(chatActivity.this, R.layout.chat_msg,msgList,me.getUid(),YouImg,MeImg);
+        msgAd adapter=new msgAd(chatActivity.this, R.layout.s_chat_msg,msgList,me.getUid(),YouImg,MeImg);
         ListView listView=findViewById(R.id.chatShow);
         listView.setAdapter(adapter);
         int lastItem = adapter.getCount() - 1;
@@ -126,7 +116,6 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
     private void goStart() {
         Intent getIntent=getIntent();
         int youId=getIntent.getIntExtra("you",1);
-        Log.i("你的id是多少？",""+youId);
         user u=new user();
         u.setUid(youId);
         String url="/uid/selectUser";
@@ -148,8 +137,7 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
                     if(result.iu!=0){
                     Toast.makeText(chatActivity.this,result.msg,Toast.LENGTH_SHORT).show();
                         String chat1= new Gson().toJson(result.data);
-                        chat =new Gson().fromJson(chat1,chat.class);
-                    }
+                        chat =new Gson().fromJson(chat1,chat.class);}
                 }else {
                         Toast.makeText(chatActivity.this, "出错了", Toast.LENGTH_SHORT).show();
                     }
@@ -159,7 +147,7 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
         ImageView youImg =findViewById(R.id.youImger);
         YouImg = new PackageHttp().toImgUrl(you.getImg());
         MeImg = new PackageHttp().toImgUrl(me.getImg());
-        Glide.with(chatActivity.this).load(this.YouImg).into(youImg);
+        Glide.with(chatActivity.this).load(this.YouImg).circleCrop().into(youImg);
         TextView nickName=findViewById(R.id.user_nickname);
         nickName.setText(you.getNickname());
     }

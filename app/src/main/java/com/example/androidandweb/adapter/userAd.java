@@ -39,7 +39,7 @@ public class userAd extends ArrayAdapter<user> {
         String url=packageHttp.toImgUrl(u.getImg())  ;
 
         Log.i("图片", url);
-        Glide.with(context).load(url).into(img);
+        Glide.with(context).load(url).circleCrop().into(img);
 //        email.setText(u.getEmail());
         return view;
     }
