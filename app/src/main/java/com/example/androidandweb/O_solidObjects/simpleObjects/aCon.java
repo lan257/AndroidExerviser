@@ -27,6 +27,8 @@ public class aCon {
     public void conChange(){
         if (type==2){
             String pro=mySql.getSharedPreferences("LocalState").getInt("uid", 1)+"---";
-            con=new PackageHttp().changeFileName(con,pro,"ActImg");}
+            con=new PackageHttp().changeFileName(con,pro,"ActImg");
+            uri=null;
+        }
     }
 }

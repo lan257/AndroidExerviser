@@ -54,7 +54,7 @@ public class activity {
     }
     //设置标题图片
     public void STitleImg(aCon aCon){
-        finCommit= new Gson().toJson(aCon);
+        titleImg= new Gson().toJson(aCon);
     }
     //获得标题图片
     public aCon GTitleImg(){

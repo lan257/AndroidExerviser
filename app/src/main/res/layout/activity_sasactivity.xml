@@ -40,32 +40,30 @@
     <View
         android:layout_width="0dp"
         android:layout_height="20dp"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible">
-<!--        >android:orientation="horizontal"-->
+        android:visibility="gone"
+        android:id="@+id/more1">
+        <!--        >android:orientation="horizontal"-->
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1" />
-    <Button
+        <Button
         android:id="@+id/insertImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
-        /><View
+        android:text="图片"/>
+        <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1" />
         <Button
-            android:id="@+id/Refresh"
+            android:id="@+id/showAct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="↻"
-            />
+            android:text="效果展示"/>
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -79,14 +77,52 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
         <Button
+            android:id="@+id/TitleImg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="展示图片" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+<!--        >android:orientation="horizontal"-->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.3" />
+    <Button
+        android:id="@+id/showMore1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/Refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="↻"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        <Button
             android:id="@+id/submit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="发布"
-            /><View
+            android:text="发布" />
+        <View
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="0.3" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

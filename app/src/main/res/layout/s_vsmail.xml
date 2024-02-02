@@ -25,23 +25,6 @@
         android:text="遥远的天穹"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/AdSVUpdate"
-        android:layout_width="33dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:background="@drawable/text"
-        android:contentDescription="@string/todo"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <ImageView
-        android:id="@+id/AdLove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:background="@drawable/img"
-        android:contentDescription="@string/todo"
-        tools:ignore="TouchTargetSizeCheck" />
 </LinearLayout>
     <View
         android:layout_width="match_parent"

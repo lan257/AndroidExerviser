@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -29,7 +30,6 @@ public class PackageHttp {
     String vid;
     String data;
     String jwt;
-
     public PackageHttp( String url, Object object) {
         mySql mySql = null;
         // 获取SharedPreferences对象，参数为文件名和访问模式

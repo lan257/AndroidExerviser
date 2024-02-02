@@ -31,12 +31,7 @@ public class chatListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat_list);
         goo();
         Button ChatSelect=findViewById(R.id.chatSelect);
-        ChatSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-             chatSelect();
-            }
-        });
+        ChatSelect.setOnClickListener(v -> chatSelect());
     }
 
     private void chatSelect() {
@@ -46,7 +41,6 @@ public class chatListActivity extends AppCompatActivity {
         for (chatList cl:chatListS
              ) {
             if (cl.toString().contains(name)){
-                Log.i("查询中",cl.toString());
                 chatListV.add(cl);
             }
         }
@@ -56,32 +50,36 @@ public class chatListActivity extends AppCompatActivity {
     private void goo() {
         String url = "/getChatList";
         byte s = 0;
-        postJwt.sendPostRequest(url, s, new postJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
-                    Type type = new TypeToken<List<chatList>>(){}.getType();
-                    chatListS =new Gson().fromJson(new Gson().toJson(result.data), type);
-                    chatListShow(chatListS);
-                    }}});
-    }
+        postJwt.sendPostRequest(url, s, result -> {
+            // 处理返回的Result对象
+            if (result != null) {
+                Type type = new TypeToken<List<chatList>>(){}.getType();
+                chatListS =new Gson().fromJson(new Gson().toJson(result.data), type);
+                chatListAd adapter=new chatListAd(chatListActivity.this, R.layout.s_chat_list_show,chatListS);
+                ListView listView=findViewById(R.id.chatListShow);
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener((parent, view, position, id) -> {
 
-    private void chatListShow(List<chatList> chatListS) {
+                    chatList cl= chatListS.get(position);
+                    //跳转chatActivity页面
+                    Intent intent=new Intent(chatListActivity.this, chatActivity.class);
+                    intent.putExtra("you",cl.getUser().getUid());
+                    startActivity(intent);});
+                }});}
+
+        private void chatListShow(List<chatList> chatListS) {
 //        Log.i("测试私聊列表",chatList.get(0).getMsg().getTime()+"");
         chatListAd adapter=new chatListAd(chatListActivity.this, R.layout.s_chat_list_show,chatListS);
         ListView listView=findViewById(R.id.chatListShow);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        listView.setOnItemClickListener((parent, view, position, id) -> {
 
-                chatList cl= chatListS.get(position);
-                //跳转chatActivity页面
-                Intent intent=new Intent(chatListActivity.this, chatActivity.class);
-                Log.i("你是谁？",""+cl);
-                intent.putExtra("you",cl.getUser().getUid());
-                startActivity(intent);
-            }
+            chatList cl= chatListS.get(position);
+            //跳转chatActivity页面
+            Intent intent=new Intent(chatListActivity.this, chatActivity.class);
+            Log.i("你是谁？",""+cl);
+            intent.putExtra("you",cl.getUser().getUid());
+            startActivity(intent);
         });
     }
 }

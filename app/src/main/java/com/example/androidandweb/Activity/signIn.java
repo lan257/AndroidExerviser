@@ -27,6 +27,7 @@ public class signIn extends AppCompatActivity implements View.OnClickListener{
 
     private static final int PICK_IMAGE_REQUEST = 1;
     Uri selectedImageUri;
+    boolean changis=false;
     private mySql MyApp;
     // 获取SharedPreferences对象，参数为文件名和访问模式
     SharedPreferences localState = mySql.getSharedPreferences("LocalState");//本机状态文件
@@ -82,8 +83,9 @@ public class signIn extends AppCompatActivity implements View.OnClickListener{
 
             //aaw,传递服务器储存
         String url="/sign";
+        if (changis){
             FileUploadTask fileUploadTask = new FileUploadTask(url,filepath);
-            fileUploadTask.execute();
+            fileUploadTask.execute();}
             url="/sign1";
         postNoJwt.sendPostRequest(url, u, new postNoJwt.OnResultListener() {
             public void onResult(Result result) {
@@ -123,7 +125,7 @@ public class signIn extends AppCompatActivity implements View.OnClickListener{
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
             imageView.setImageURI(selectedImageUri);
-
+            changis=true;
             // 在这里处理选择的图片
             // 可以获取图片路径 selectedImageUri.getPath() 或者使用其他方法
         }
