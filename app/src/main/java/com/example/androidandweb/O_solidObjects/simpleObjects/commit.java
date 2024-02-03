@@ -8,7 +8,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class commit {
+    int cid;
+    int aid;
     int uid;
     String com;
-    String time;
+    String img;
+    int love;
+    int replyNum;
+    String reply;
 }

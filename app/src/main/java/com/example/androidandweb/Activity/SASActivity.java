@@ -140,7 +140,7 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
         activity activity=new activity();
         activity.setTitleText(TitleText.getText().toString());
         activity.STitleImg(titleImg1);
-        activity.SContext(aConList1);
+        activity.SContent(aConList1);
         activity.SChangeTime();
         Log.i("为什么",""+activity);
         //设置标签
@@ -197,27 +197,22 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
         aConAd adapter=new aConAd(SASActivity.this, R.layout.s_acon,aCList,changId);
         ListView listView=findViewById(R.id.ActivityContextShow);
         listView.setAdapter(adapter);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                aCon ac= aCList.get(position);
-                if (ac.getType()==2){
-                    imgThing=2;
-                    changId=position;
-                    openGallery();
-                }return false;
-            }});
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                aCon ac= aCList.get(position);
-                if (ac.getType()==1){
-                    changeText();
-                    changId=position;
-                    updataText.setText(ac.getCon());
-                    showContextListView(aConList);
-            }}
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
+            aCon ac= aCList.get(position);
+            if (ac.getType()==2){
+                imgThing=2;
+                changId=position;
+                openGallery();
+            }return false;
         });
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            aCon ac= aCList.get(position);
+            if (ac.getType()==1){
+                changeText();
+                changId=position;
+                updataText.setText(ac.getCon());
+                showContextListView(aConList);
+        }});
         int lastItem = adapter.getCount() - 1;
         if (lastItem >= 0) {
             listView.setSelection(changId);}}

@@ -27,14 +27,10 @@ public class signIn extends AppCompatActivity implements View.OnClickListener{
 
     private static final int PICK_IMAGE_REQUEST = 1;
     Uri selectedImageUri;
-    boolean changis=false;
-    private mySql MyApp;
+    boolean changIs=false;
     // 获取SharedPreferences对象，参数为文件名和访问模式
     SharedPreferences localState = mySql.getSharedPreferences("LocalState");//本机状态文件
     SharedPreferences.Editor LocalState = localState.edit();
-
-    SharedPreferences localUserMsg = mySql.getSharedPreferences("localUserMsg");//用户数据库
-    SharedPreferences.Editor LSM = localUserMsg.edit();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,27 +74,29 @@ public class signIn extends AppCompatActivity implements View.OnClickListener{
         String PUEmail=email.getText().toString();
         String PUPassword=password.getText().toString();
         String nickname=nickName.getText().toString();
-        String filepath=getRealPathFromURI(selectedImageUri);
         user u=new user(nickname,PUEmail,PUPassword);
 
             //aaw,传递服务器储存
         String url="/sign";
-        if (changis){
+        if (changIs){
+            String filepath=getRealPathFromURI(selectedImageUri);
             FileUploadTask fileUploadTask = new FileUploadTask(url,filepath);
             fileUploadTask.execute();}
-            url="/sign1";
-        postNoJwt.sendPostRequest(url, u, new postNoJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
-                    if(result.iu!=0){//注册成功
-                        Toast.makeText(signIn.this, "服务器注册成功", Toast.LENGTH_SHORT).show();}
-                    else {
-                        Toast.makeText(signIn.this, result.msg, Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(signIn.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
+        url="/sign1";
+        postNoJwt.sendPostRequest(url, u, result -> {
+            // 处理返回的Result对象
+            if (result != null) {
+                if(result.iu!=0){//注册成功
+                    Intent intent=new Intent(this,MainActivity.class);
+                    intent.putExtra("email",PUEmail);
+                    intent.putExtra("password",PUPassword);
+                    startActivity(intent);
+                    Toast.makeText(signIn.this, "服务器注册成功", Toast.LENGTH_SHORT).show();}
+                else {
+                    Toast.makeText(signIn.this, result.msg, Toast.LENGTH_LONG).show();
                 }
+            } else {
+                Toast.makeText(signIn.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
             }
         });
 //        sp,保存到本机
@@ -125,7 +123,7 @@ public class signIn extends AppCompatActivity implements View.OnClickListener{
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.getData();
             imageView.setImageURI(selectedImageUri);
-            changis=true;
+            changIs=true;
             // 在这里处理选择的图片
             // 可以获取图片路径 selectedImageUri.getPath() 或者使用其他方法
         }

@@ -32,7 +32,6 @@ public class userAd extends ArrayAdapter<user> {
         @SuppressLint("ViewHolder") View view = LayoutInflater.from(getContext()).inflate(re,parent,false);
         ImageView img=view.findViewById(R.id.list_user_img);
         TextView name=view.findViewById(R.id.list_user_nickName);
-//        TextView email=view.findViewById(R.id.list_user_email);
 
         name.setText(u.getNickname());
         PackageHttp packageHttp = new PackageHttp();
@@ -40,7 +39,6 @@ public class userAd extends ArrayAdapter<user> {
 
         Log.i("图片", url);
         Glide.with(context).load(url).circleCrop().into(img);
-//        email.setText(u.getEmail());
         return view;
     }
 }

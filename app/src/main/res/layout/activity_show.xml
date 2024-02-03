@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.showAct">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/s111"
+        android:gravity="center"
+        android:text="活动"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="15dp"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/youImger"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/circle_shape" />
+
+        <TextView
+            android:id="@+id/user_nickname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="@string/user_nickname"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/chatAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/s111"
+            android:text="+关注" />
+
+        <View
+            android:layout_width="15dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="活动标题"
+        android:textSize="30sp" />
+
+    <LinearLayout
+        android:id="@+id/father"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/xHigh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!--标签放在这里，应该是RecyclerView-->
+            <ListView
+                android:id="@+id/actShow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/createTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="2024/2/3/16:18"
+                android:textColor="@color/shallow"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:background="@color/s111" />
+
+        <LinearLayout
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="评论区" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <!-- 下方列表 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comShow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/add"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:contentDescription="@string/AAWLogin"
+            android:src="@drawable/add" />
+
+        <EditText
+            android:id="@+id/chatMsg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="请输入信息"
+            android:minHeight="48dp" />
+
+        <Button
+            android:id="@+id/sentChatMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送" />
+
+        <ImageButton
+            android:id="@+id/love"
+            android:layout_width="42dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:contentDescription="@string/AAWLogin"
+            android:src="@drawable/love" />
+    </LinearLayout>
+</LinearLayout>

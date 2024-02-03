@@ -46,17 +46,16 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
     private void getUser() {
         String url = "/getUserJwt";
         byte s = 0;
-        postJwt.sendPostRequest(url, s, new postJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
-                    Log.i("个人信息1",result.iu+result.msg+result.data);
-                    if(result.iu==1){
-                        String user= new Gson().toJson(result.data);
-                        me= new Gson().fromJson(user, user.class);
-                    }}
-                youShow();
-                showChat();}});}
+        postJwt.sendPostRequest(url, s, result -> {
+            // 处理返回的Result对象
+            if (result != null) {
+                Log.i("个人信息1",result.iu+result.msg+result.data);
+                if(result.iu==1){
+                    String user= new Gson().toJson(result.data);
+                    me= new Gson().fromJson(user, user.class);
+                }}
+            youShow();
+            showChat();});}
 
     @Override
     public void onClick(View v) {
@@ -68,15 +67,14 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
     }}
  void again(){
     chat c=chat;
-    postJwt.sendPostRequest("/selectChat", c, new postJwt.OnResultListener() {
-        public void onResult(Result result) {
-            // 处理返回的Result对象
-            if (result != null) {
-                if(result.iu!=0){
-                    String chat1= new Gson().toJson(result.data);
-                    chat =new Gson().fromJson(chat1,chat.class);
-                    showChat();
-                }}}});
+    postJwt.sendPostRequest("/selectChat", c, result -> {
+        // 处理返回的Result对象
+        if (result != null) {
+            if(result.iu!=0){
+                String chat1= new Gson().toJson(result.data);
+                chat =new Gson().fromJson(chat1,chat.class);
+                showChat();
+            }}});
 
 }
     private void sent() {
@@ -89,16 +87,13 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
             chat.addMsgData();
             chat c=chat;
             Log.i("添加记录",c+"");
-            postJwt.sendPostRequest("/addMsg", c, new postJwt.OnResultListener() {
-                public void onResult(Result result) {
-                    // 处理返回的Result对象
-                    if (result != null) {
-                        if(result.iu!=0){
-//                            String chat1= new Gson().toJson(result.data);
-//                            chat =new Gson().fromJson(chat1,chat.class);
-                            showChat();
-                            sentMsg.setText("");
-                        }}}});}}
+            postJwt.sendPostRequest("/addMsg", c, result -> {
+                // 处理返回的Result对象
+                if (result != null) {
+                    if(result.iu!=0){
+                        showChat();
+                        sentMsg.setText("");
+                    }}});}}
     private void showChat() {
         List<msg> msgList=chat.getMsg();
         if (msgList.size()>45){
@@ -106,6 +101,8 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
         }
         msgAd adapter=new msgAd(chatActivity.this, R.layout.s_chat_msg,msgList,me.getUid(),YouImg,MeImg);
         ListView listView=findViewById(R.id.chatShow);
+        listView.setVisibility(View.VISIBLE);
+        findViewById(R.id.load).setVisibility(View.GONE);
         listView.setAdapter(adapter);
         int lastItem = adapter.getCount() - 1;
         if (lastItem >= 0) {
@@ -130,18 +127,16 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
                     }}}});
         url="/selectChat";
         chat sChat=new chat(youId);
-        postJwt.sendPostRequest(url, sChat, new postJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
-                    if(result.iu!=0){
-                    Toast.makeText(chatActivity.this,result.msg,Toast.LENGTH_SHORT).show();
-                        String chat1= new Gson().toJson(result.data);
-                        chat =new Gson().fromJson(chat1,chat.class);}
-                }else {
-                        Toast.makeText(chatActivity.this, "出错了", Toast.LENGTH_SHORT).show();
-                    }
-                getUser();}});}
+        postJwt.sendPostRequest(url, sChat, result -> {
+            // 处理返回的Result对象
+            if (result != null) {
+                if(result.iu!=0){
+                    String chat1= new Gson().toJson(result.data);
+                    chat =new Gson().fromJson(chat1,chat.class);}
+            }else {
+                    Toast.makeText(chatActivity.this, "出错了", Toast.LENGTH_SHORT).show();
+                }
+            getUser();});}
 
     private void youShow() {
         ImageView youImg =findViewById(R.id.youImger);

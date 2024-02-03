@@ -93,5 +93,37 @@ public class PackageHttp {
             return dateTime.format(outputFormatter);
         }
     }
+    public static String formatTime2(String inputTime) {
+        // 定义输入时间的格式
+        DateTimeFormatter inputFormatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd' 'HH:mm:ss")
+                .appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true)  // 允许小数位的范围是0到9
+                .toFormatter();
+        // 解析输入时间字符串
+        LocalDateTime dateTime = LocalDateTime.parse(inputTime, inputFormatter);
 
+        // 获取当前时间
+        LocalDateTime now = LocalDateTime.now();
+
+        // 如果时间为当天
+        if (dateTime.toLocalDate().isEqual(now.toLocalDate())) {
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("HH:mm");
+            return dateTime.format(outputFormatter);
+        }
+        // 如果时间距今小于一周
+        else if (dateTime.isAfter(now.minus(7, ChronoUnit.DAYS))) {
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("E HH:mm");
+            return dateTime.format(outputFormatter);
+        }
+        // 如果时间为当年
+        else if (dateTime.getYear() == now.getYear()) {
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MM-dd HH:mm");
+            return dateTime.format(outputFormatter);
+        }
+        // 其他情况
+        else {
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            return dateTime.format(outputFormatter);
+        }
+    }
 }

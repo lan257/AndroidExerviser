@@ -29,17 +29,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                tools:ignore="NestedWeights">
             <TextView
                 android:id="@+id/nickName"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="这是用户名称" />
+                android:text="这是用户名称"
+                tools:ignore="NestedWeights" />
                 <TextView
                     android:id="@+id/msgTime"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:textColor="@color/shallow"
                     android:text="2024/1/30/22:49" />
         </LinearLayout>
             <TextView

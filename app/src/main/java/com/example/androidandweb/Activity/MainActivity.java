@@ -39,10 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         updateVid.setOnClickListener(this);//设置事件
         TextView Vid=findViewById(R.id.textVid);//订阅框
         Vid.setOnClickListener(this);
-        TextView signIn=findViewById(R.id.TextSignIn);
+        TextView signIn=findViewById(R.id.TextSignIn);//注册账号
         signIn.setOnClickListener(this);
-        TextView test=findViewById(R.id.TextForget);
-        //test.setOnClickListener(this);
         loginAuto();
     }
 //按钮事件判定
@@ -92,48 +90,46 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.i("触发",pu.toString());
         // 调用方法发送POST请求
-        postNoJwt.sendPostRequest(url, pu, new postNoJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
+        postNoJwt.sendPostRequest(url, pu, result -> {
+            // 处理返回的Result对象
+            if (result != null) {
 
-                    //数据处理
+                //数据处理
 //                    Toast.makeText(MainActivity.this, result.msg, Toast.LENGTH_SHORT).show();
-                    if(result.iu!=0){//登陆成功
-                    //将jwt存入键值对存储
-                    LocalState.putString("token", result.data.toString());
-                        LocalState.apply();
+                if(result.iu!=0){//登陆成功
+                //将jwt存入键值对存储
+                LocalState.putString("token", result.data.toString());
+                    LocalState.apply();
 //                    String jwt=sharedPreferences.getString("token", "none");//读取token
-                    Toast.makeText(MainActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
 
-                    CheckBox remember=findViewById(R.id.ARemember);//检测记住账号
-                    CheckBox auto=findViewById(R.id.AAuto);//检测自动登录
+                CheckBox remember=findViewById(R.id.ARemember);//检测记住账号
+                CheckBox auto=findViewById(R.id.AAuto);//检测自动登录
 
-                    //存储登录信息
-                        if(remember.isChecked()){
-                            LocalState.putString("remember","true");
-                            LocalState.putString("email",PUEmail);
-                            LocalState.putString("password",PUPassword);
+                //存储登录信息
+                    if(remember.isChecked()){
+                        LocalState.putString("remember","true");
+                        LocalState.putString("email",PUEmail);
+                        LocalState.putString("password",PUPassword);
+                        LocalState.apply();
+                        if (auto.isChecked()){
+                            LocalState.putString("auto","true");
                             LocalState.apply();
-                            if (auto.isChecked()){
-                                LocalState.putString("auto","true");
-                                LocalState.apply();
-                            }else {LocalState.putString("auto","false");
-                                LocalState.apply();}
-                        }else {
-                            LocalState.putString("remember","false");
-                            LocalState.apply();
-                        }
-                        isLogin=1;
-                        Intent intent=new Intent(MainActivity.this, index.class);
-                        startActivity(intent);
-                        //跳转主页
+                        }else {LocalState.putString("auto","false");
+                            LocalState.apply();}
+                    }else {
+                        LocalState.putString("remember","false");
+                        LocalState.apply();
                     }
-
-                    // 还可以通过result.getData()获取数据
-                } else {
-                    Toast.makeText(MainActivity.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
+                    isLogin=1;
+                    Intent intent=new Intent(MainActivity.this, index.class);
+                    startActivity(intent);
+                    //跳转主页
                 }
+
+                // 还可以通过result.getData()获取数据
+            } else {
+                Toast.makeText(MainActivity.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
             }
         });}else {
             Toast.makeText(MainActivity.this, "你需要勾选同意app的相关规定", Toast.LENGTH_SHORT).show();
@@ -146,8 +142,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         CheckBox auto=findViewById(R.id.AAuto);//检测自动登录
         TextView email=findViewById(R.id.editTextEmailAddress);
         TextView password=findViewById(R.id.editTextPassword);
+        Intent intent=getIntent();
         if(!sharedPreferences.getString("remember", "").equals("")){
-        String REM=sharedPreferences.getString("remember", "");
+            String REM=sharedPreferences.getString("remember", "");
+        if (intent.getStringExtra("email")!=null){
+            if(REM.equals("true")){
+                remember.setChecked(true);}
+            email.setText(intent.getStringExtra("email"));
+            password.setText(intent.getStringExtra("password"));
+        }else {
         if(REM.equals("true")){
             email.setText(sharedPreferences.getString("email", ""));
             password.setText(sharedPreferences.getString("password", ""));
@@ -166,8 +169,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             }
                         }
                     }, 3000);
-                }
-            }
-        }}
-    }
-}
+                }}}}}}}

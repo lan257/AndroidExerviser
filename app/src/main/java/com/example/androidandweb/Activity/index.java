@@ -1,6 +1,5 @@
 package com.example.androidandweb.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,7 +26,7 @@ import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.O_solidObjects.video;
 import com.example.androidandweb.Q_sql.mySql;
 import com.example.androidandweb.R;
-import com.example.androidandweb.adapter.actAd;
+import com.example.androidandweb.adapter.actAdR;
 import com.example.androidandweb.adapter.chatListAd;
 import com.example.androidandweb.adapter.userAd;
 import com.example.androidandweb.adapter.videoAd;
@@ -40,41 +39,44 @@ import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import java.time.LocalTime;
 import java.util.List;
+import com.example.androidandweb.adapter.RecyclerItemClickListener;
 
 public class index extends AppCompatActivity implements View.OnClickListener {
     private DrawerLayout index;
     user me;
-    int s;//顶部选择
-    PackageHttp packageHttp=new PackageHttp();
-
+    int s=1;//顶部选择
+    TextView SActivity,SVideo,SUser,hello;
+    ListView listView;
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
         index=findViewById(R.id.index);
+        setButtonClick();
         hello();
         getUser();
-        NavigationView navigationView = findViewById(R.id.left);
-        navigationView.setNavigationItemSelectedListener(item -> {
-            selectMenu(item.getItemId());// 在这里处理菜单项的点击事件
-            return true;
-        });
-        setButtonClick();
     }
 
     private void setButtonClick() {
+        NavigationView navigationView = findViewById(R.id.left);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            selectMenu(item.getItemId());// 在这里处理菜单项的点击事件
+            return true;});
         ImageButton SV=findViewById(R.id.select);
         SV.setOnClickListener(this);
         ImageView mi=findViewById(R.id.userImg);
         mi.setOnClickListener(this);
-        TextView SActivity=findViewById(R.id.activity);
+        SActivity=findViewById(R.id.activity);
         SActivity.setOnClickListener(this);
-        TextView SVideo=findViewById(R.id.video);
+        SVideo=findViewById(R.id.video);
         SVideo.setOnClickListener(this);
-        TextView SUser=findViewById(R.id.user);
+        SUser=findViewById(R.id.user);
         SUser.setOnClickListener(this);
-        TextView hello=findViewById(R.id.hello);
+        hello=findViewById(R.id.hello);
         hello.setOnClickListener(this);
+        listView=findViewById(R.id.ListShow);
+        recyclerView=findViewById(R.id.recyclerView);
     }
     public void onClick(View v) {
         if(v.getId()==R.id.userImg){
@@ -85,6 +87,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         }
         SIndex(v);
     }
+    //展示页面
     public void AAWS(){
         EditText name=findViewById(R.id.ResName);
         String Name;
@@ -107,7 +110,6 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                         Type type = new TypeToken<List<video>>() {
                         }.getType();
                         List<video> videoList = new Gson().fromJson(List, type);
-                        TextView hello = findViewById(R.id.hello);
                         hello.setVisibility(View.GONE);
                         // 现在你可以使用userList了
                         // ...
@@ -116,7 +118,6 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                             Toast.makeText(index.this, "尚未收纳资源", Toast.LENGTH_SHORT).show();
                         }
                         videoAd adapter = new videoAd(index.this, R.layout.s_video, videoList);
-                        ListView listView = findViewById(R.id.ListShow);
                         listView.setAdapter(adapter);
                         listView.setOnItemLongClickListener((parent, view, position, id) -> {
                             video video = videoList.get(position);
@@ -163,7 +164,6 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                         // 现在你可以使用userList了
                         // ...
                         userAd adapter=new userAd(index.this, R.layout.s_layout_user_show,userList);
-                        ListView listView=findViewById(R.id.ListShow);
                         listView.setAdapter(adapter);
                         listView.setOnItemClickListener((parent, view, position, id) -> {
                             user u= userList.get(position);
@@ -191,7 +191,6 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                 Type type = new TypeToken<List<chatList>>(){}.getType();
                 List<chatList> chatList =new Gson().fromJson(new Gson().toJson(result.data), type);
                 chatListAd adapter=new chatListAd(this, R.layout.s_chat_list_show,chatList);
-                ListView listView=findViewById(R.id.ListShow);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener((parent, view, position, id) -> {
                     chatList cl= chatList.get(position);
@@ -206,53 +205,77 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         byte s = 0;
         postJwt.sendPostRequest(url, s, result -> {
                     // 处理返回的Result对象
-                    if (result != null) {
-                        if (result.iu!=0){
-                            Type type = new TypeToken<List<activity>>(){}.getType();
-                            List<activity> activityList =new Gson().fromJson(new Gson().toJson(result.data), type);
-                            RecyclerView recyclerView = findViewById(R.id.recyclerView);
-                            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-                            actAd adapter = new actAd(this, activityList);
-                            recyclerView.setAdapter(adapter);
+            if (result != null) {
+                if (result.iu!=0) {
+                    Type type = new TypeToken<List<activity>>(){}.getType();
+                    List<activity> activityList = new Gson().fromJson(new Gson().toJson(result.data), type);
+                    recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+                    actAdR adapter = new actAdR(this, activityList);
+                    recyclerView.setAdapter(adapter);
+                    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+                            activity activity = activityList.get(position);
+                            Intent intent=new Intent(index.this, showAct.class);
+                            intent.putExtra("aid",activity.getAid());
+//                            Log.i("activityAid",""+activity);
+                            startActivity(intent);
+                            // 处理点击事件
                         }
-                    }});
+                        @Override
+                        public void onLongItemClick(View view, int position) {
+                            activity activity = activityList.get(position);
+                            // 处理长按事件
+                        }
+                    }));
+                    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                        @Override
+                        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                            super.onScrolled(recyclerView, dx, dy);
+                            // 处理滑动事件，dx和dy分别是水平和垂直方向上的滑动距离
+                            // 可以根据需要进行相应的操作
+                            if (dy>0){
+                                //处理上划事件
+                            }if (dy<0){
+                                //处理下划事件
+                            }if (dx>0){
+                                //处理右划事件
+                            }if (dx<0){
+                                //处理左划事件
+                            }}});}}});
     }
     //选择顶部操作
     private void SIndex(View v) {
-        TextView SActivity=findViewById(R.id.activity);
-        TextView SVideo=findViewById(R.id.video);
-        TextView SUser=findViewById(R.id.user);
-        if (v.getId()==R.id.activity||v.getId()==R.id.hello){
-            showAct();
+        if (v.getId()==R.id.activity||(v.getId()==R.id.hello&&s==1)){
             s=1;
-            findViewById(R.id.hello).setVisibility(View.GONE);
-            findViewById(R.id.ListShow).setVisibility(View.GONE);
-            findViewById(R.id.recyclerView).setVisibility(View.VISIBLE);
-            SActivity.setBackgroundColor(ContextCompat.getColor(this, R.color.s113));
-            SVideo.setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
-            SUser.setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
+            hello.setText("加载中...");
+            showS(hello,SUser);
+            showAct();
+            showS(recyclerView,SActivity);
         }if (v.getId()==R.id.user){
             s=2;
-            findViewById(R.id.hello).setVisibility(View.GONE);
-            findViewById(R.id.ListShow).setVisibility(View.VISIBLE);
-            findViewById(R.id.recyclerView).setVisibility(View.GONE);
-            SActivity.setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
-            SVideo.setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
-            SUser.setBackgroundColor(ContextCompat.getColor(this, R.color.s113));
+            hello.setText("加载中...");
+            showS(hello,SUser);
             showUser();
+            showS(listView,SUser);
         }if (v.getId()==R.id.video){
-            showVideo();
             s=3;
-            findViewById(R.id.hello).setVisibility(View.VISIBLE);
-            findViewById(R.id.ListShow).setVisibility(View.GONE);
-            findViewById(R.id.recyclerView).setVisibility(View.GONE);
-            SActivity.setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
-            SVideo.setBackgroundColor(ContextCompat.getColor(this, R.color.s113));
-            SUser.setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
+            hello.setText("加载中...");
+            showS(hello,SVideo);
+            showVideo();
+            showS(hello,SVideo);
         }
-
     }
-
+    private void showS(View view1,View view2){
+    hello.setVisibility(View.GONE);
+    listView.setVisibility(View.GONE);
+    recyclerView.setVisibility(View.GONE);
+    SActivity.setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
+    SVideo.setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
+    SUser.setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
+    view1.setVisibility(View.VISIBLE);
+    view2.setBackgroundColor(ContextCompat.getColor(this, R.color.s113));
+}
     //处理侧边框选项管理
     public void selectMenu(int itemId) {
         if(itemId==R.id.select1){
@@ -283,7 +306,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
     private void openLift() {
         index.openDrawer(GravityCompat.START);
         try {
-            String imageUrl = packageHttp.toImgUrl(me.getImg());
+            String imageUrl =new PackageHttp().toImgUrl(me.getImg());
             ImageView imageView=findViewById(R.id.userImger);
             // 使用 Glide 或其他图片加载库加载在线图片
             Glide.with(this).load(imageUrl).circleCrop().into(imageView);
@@ -313,11 +336,10 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                     if(result.iu==1){
 
 
-                        String user= new Gson().toJson(result.data);
-//                        Type type = new TypeToken<user>(){}.getType();
-                        me= new Gson().fromJson(user, user.class);
+//                        String user= new Gson().toJson(result.data);
+                        me= new Gson().fromJson(new Gson().toJson(result.data), user.class);
                         ImageView mi=findViewById(R.id.userImg);
-                        String imageUrl = packageHttp.toImgUrl(me.getImg());
+                        String imageUrl = new PackageHttp().toImgUrl(me.getImg());
                         Glide.with(index.this).load(imageUrl).circleCrop().into(mi);
                         SharedPreferences.Editor LocalState = mySql.getSharedPreferences("LocalState").edit();//本机状态文件
                         LocalState.putInt("uid", me.getUid());
@@ -340,7 +362,6 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         LocalTime currentTime = LocalTime.now();
         int hour = currentTime.getHour();
         Log.i("时间","你好，"+currentTime+"点了");
-        TextView hello=findViewById(R.id.hello);
         hello.setVisibility(View.VISIBLE);
         if (hour>=0&&hour<6){
             hello.setText("深夜，现在的夜，熬的只是还未改变的习惯");
