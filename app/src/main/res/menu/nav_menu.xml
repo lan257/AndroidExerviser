@@ -3,14 +3,8 @@
     >
 <group android:checkableBehavior="single">
     <item
-        android:id="@+id/select1"
-        android:title="关注"/>
-    <item
-        android:id="@+id/select2"
-        android:title="喜欢"/>
-<!--    <item-->
-<!--        android:id="@+id/select3"-->
-<!--        android:title="私信"/>-->
+        android:id="@+id/userShow"
+        android:title="打开主页"/>
     <item
         android:id="@+id/select4"
         android:title="浏览记录"/>

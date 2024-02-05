@@ -2,21 +2,24 @@ package com.example.androidandweb.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.androidandweb.O_solidObjects.lOperator;
 import com.example.androidandweb.O_solidObjects.simpleObjects.commit;
 import com.example.androidandweb.O_solidObjects.simpleObjects.reply;
 import com.example.androidandweb.R;
 import com.example.androidandweb.http.ImageLoader;
 import com.example.androidandweb.http.PackageHttp;
+import com.example.androidandweb.http.getJwt;
+import com.example.androidandweb.http.postJwt;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +29,16 @@ import lombok.NonNull;
 public class comAdR extends RecyclerView.Adapter<comAdR.MyViewHolder> {
     private List<commit> itemList;
     private Context context;
+//    private lOperator lp;
+    private OnItemClickListener onItemClickListener;
 
+    public interface OnItemClickListener {
+        void onButtonClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
     public comAdR(Context context, List<commit> itemList) {
         this.context = context;
         this.itemList = itemList;
@@ -57,7 +69,11 @@ public class comAdR extends RecyclerView.Adapter<comAdR.MyViewHolder> {
         new ImageLoader().loadOnlineImage(context, new PackageHttp().toImgUrl(item.getU().getImg()), holder.userImg);
         if (!Objects.equals(item.getImg(), "")){
             holder.comImg.setVisibility(View.VISIBLE);
-        new ImageLoader().loadOnlineImage(context, new PackageHttp().toImgUrl(item.getImg()), holder.comImg);}
+            Glide.with(context).load(new PackageHttp().toImgUrl(item.getImg())).circleCrop().into(holder.comImg);}
+        //设置点赞图片
+        if (item.isLike()){holder.love.setImageResource(R.drawable.liked);}else {holder.love.setImageResource(R.drawable.like);}
+        //为评论点赞
+        holder.love.setOnClickListener(v -> {if (onItemClickListener!=null){onItemClickListener.onButtonClick(position);}});
     }
 
     @Override
@@ -68,7 +84,7 @@ public class comAdR extends RecyclerView.Adapter<comAdR.MyViewHolder> {
     // ViewHolder内部静态类
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nickname,com,reply1,reply2,more,time,loveNum;
-        public ImageView userImg,comImg;
+        public ImageView userImg,comImg,love;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,6 +97,7 @@ public class comAdR extends RecyclerView.Adapter<comAdR.MyViewHolder> {
             loveNum=itemView.findViewById(R.id.loveNum);
             userImg=itemView.findViewById(R.id.Imager);
             comImg=itemView.findViewById(R.id.comImg);
+            love=itemView.findViewById(R.id.love);
         }
     }
 }

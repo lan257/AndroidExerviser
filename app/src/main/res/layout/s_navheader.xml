@@ -13,7 +13,7 @@
     <ImageView
         android:scaleType="centerCrop"
         android:background="@drawable/circle_shape"
-        android:id="@+id/userImger"
+        android:id="@+id/userImager"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:contentDescription="@string/加载失败"

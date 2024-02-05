@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class commit {
+    boolean like;
     user u;
     int cid;
     int aid;
@@ -24,6 +25,7 @@ public class commit {
     int replyNum;
     String time;
     String reply;
+
     public List<reply> GReply(){
         return new Gson().fromJson(reply, new TypeToken<List<reply>>(){}.getType());
     }

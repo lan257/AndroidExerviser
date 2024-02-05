@@ -31,7 +31,15 @@ public class PackageHttp {
     String vid;
     String data;
     String jwt;
-    public PackageHttp( String url, Object object) {
+
+    public PackageHttp(String url) {
+        SharedPreferences sharedPreferences = new mySql().getSharedPreferences("LocalState");//本机状态文件
+        String Vid=sharedPreferences.getString("vid", "none");
+        jwt=sharedPreferences.getString("token", "none");
+        this.vid = Vid+"/aaw"+url;
+    }
+
+    public PackageHttp(String url, Object object) {
         mySql mySql = null;
         // 获取SharedPreferences对象，参数为文件名和访问模式
         SharedPreferences sharedPreferences = mySql.getSharedPreferences("LocalState");//本机状态文件

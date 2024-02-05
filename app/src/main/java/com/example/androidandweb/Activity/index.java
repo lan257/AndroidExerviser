@@ -32,6 +32,7 @@ import com.example.androidandweb.adapter.userAd;
 import com.example.androidandweb.adapter.videoAd;
 import com.example.androidandweb.http.PackageHttp;
 import com.example.androidandweb.http.postJwt;
+import com.example.androidandweb.http.getJwt;
 import com.google.android.material.navigation.NavigationView;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -44,8 +45,9 @@ import com.example.androidandweb.adapter.RecyclerItemClickListener;
 public class index extends AppCompatActivity implements View.OnClickListener {
     private DrawerLayout index;
     user me;
-    int s=1;//顶部选择
+    int s=1;
     TextView SActivity,SVideo,SUser,hello;
+    List<activity> activityList;
     ListView listView;
     RecyclerView recyclerView;
     @Override
@@ -85,6 +87,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         if(v.getId()==R.id.select){
             AAWS();//查询资源
         }
+
         SIndex(v);
     }
     //展示页面
@@ -119,6 +122,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                         }
                         videoAd adapter = new videoAd(index.this, R.layout.s_video, videoList);
                         listView.setAdapter(adapter);
+                        showS(listView,SVideo);
                         listView.setOnItemLongClickListener((parent, view, position, id) -> {
                             video video = videoList.get(position);
                             if (video.getIns() == 1) {
@@ -171,6 +175,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                             Intent intent=new Intent(index.this, chatActivity.class);
                             intent.putExtra("you",u.getUid());
                             startActivity(intent);
+
                         });
                         Toast.makeText(index.this, "查询成功", Toast.LENGTH_SHORT).show();}
                 } else {
@@ -202,13 +207,12 @@ public class index extends AppCompatActivity implements View.OnClickListener {
 
     private void showAct() {
         String url = "/getActList";
-        byte s = 0;
-        postJwt.sendPostRequest(url, s, result -> {
+        getJwt.sendGetRequest(url, result -> {
                     // 处理返回的Result对象
             if (result != null) {
                 if (result.iu!=0) {
                     Type type = new TypeToken<List<activity>>(){}.getType();
-                    List<activity> activityList = new Gson().fromJson(new Gson().toJson(result.data), type);
+                    activityList = new Gson().fromJson(new Gson().toJson(result.data), type);
                     recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                     actAdR adapter = new actAdR(this, activityList);
                     recyclerView.setAdapter(adapter);
@@ -216,15 +220,15 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                         @Override
                         public void onItemClick(View view, int position) {
                             activity activity = activityList.get(position);
+                            Toast.makeText(index.this, ""+activity.getAid()+position+activityList.get(position).getAid(), Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(index.this, showAct.class);
-                            intent.putExtra("aid",activity.getAid());
+                            intent.putExtra("aid",activityList.get(position).getAid());
 //                            Log.i("activityAid",""+activity);
                             startActivity(intent);
                             // 处理点击事件
                         }
                         @Override
                         public void onLongItemClick(View view, int position) {
-                            activity activity = activityList.get(position);
                             // 处理长按事件
                         }
                     }));
@@ -278,14 +282,12 @@ public class index extends AppCompatActivity implements View.OnClickListener {
 }
     //处理侧边框选项管理
     public void selectMenu(int itemId) {
-        if(itemId==R.id.select1){
-            Log.i("","我点击了选项一");
-            Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
-        }
-        if(itemId==R.id.select2){Log.i("","我点击了选项二");
-            Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
-        }if(itemId==R.id.select4){
-            Toast.makeText(index.this, "功能尚未实现", Toast.LENGTH_SHORT).show();
+        if (itemId==R.id.userShow){
+            Intent intent=new Intent(index.this,userShow.class);
+            intent.putExtra("thing","show");
+            intent.putExtra("uid",me.getUid());
+            startActivity(intent);
+            Toast.makeText(this, "打开主页", Toast.LENGTH_SHORT).show();
         }if(itemId==R.id.VideoSubmit){
             Intent intent=new Intent(index.this,videoSubmit.class);
             intent.putExtra("thing","submit");
@@ -307,7 +309,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         index.openDrawer(GravityCompat.START);
         try {
             String imageUrl =new PackageHttp().toImgUrl(me.getImg());
-            ImageView imageView=findViewById(R.id.userImger);
+            ImageView imageView=findViewById(R.id.userImager);
             // 使用 Glide 或其他图片加载库加载在线图片
             Glide.with(this).load(imageUrl).circleCrop().into(imageView);
             TextView nickname=findViewById(R.id.user_nickname);
