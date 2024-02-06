@@ -51,6 +51,13 @@ public class index extends AppCompatActivity implements View.OnClickListener {
     ListView listView;
     RecyclerView recyclerView;
     @Override
+    protected void onResume() {
+        super.onResume();
+        // 在页面从后台返回前台时触发的操作
+        // 例如，显示一个 Toast 消息
+        getUser();
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
@@ -207,7 +214,8 @@ public class index extends AppCompatActivity implements View.OnClickListener {
 
     private void showAct() {
         String url = "/getActList";
-        getJwt.sendGetRequest(url, result -> {
+        me.setThing(1);
+        postJwt.sendPostRequest(url,me, result -> {
                     // 处理返回的Result对象
             if (result != null) {
                 if (result.iu!=0) {
@@ -220,10 +228,9 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                         @Override
                         public void onItemClick(View view, int position) {
                             activity activity = activityList.get(position);
-                            Toast.makeText(index.this, ""+activity.getAid()+position+activityList.get(position).getAid(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(index.this, ""+activity.getAid()+position+activityList.get(position).getAid(), Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(index.this, showAct.class);
                             intent.putExtra("aid",activityList.get(position).getAid());
-//                            Log.i("activityAid",""+activity);
                             startActivity(intent);
                             // 处理点击事件
                         }
@@ -285,7 +292,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         if (itemId==R.id.userShow){
             Intent intent=new Intent(index.this,userShow.class);
             intent.putExtra("thing","show");
-            intent.putExtra("uid",me.getUid());
+            intent.putExtra("id",me.getUid());
             startActivity(intent);
             Toast.makeText(this, "打开主页", Toast.LENGTH_SHORT).show();
         }if(itemId==R.id.VideoSubmit){
@@ -315,7 +322,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
             TextView nickname=findViewById(R.id.user_nickname);
             nickname.setText(me.getNickname());
         } catch (NullPointerException e){
-            Toast.makeText(this, "啊", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "啊", Toast.LENGTH_SHORT).show();
             getUser();
         }
     }
@@ -329,15 +336,11 @@ public class index extends AppCompatActivity implements View.OnClickListener {
     //获取个人基本信息
     public user getUser() {
         String url = "/getUserJwt";
-        byte s = 0;
-
-            postJwt.sendPostRequest(url, s, result -> {
+            getJwt.sendGetRequest(url,result -> {
                 // 处理返回的Result对象
                 if (result != null) {
                     Log.i("个人信息1",result.iu+result.msg+result.data);
                     if(result.iu==1){
-
-
 //                        String user= new Gson().toJson(result.data);
                         me= new Gson().fromJson(new Gson().toJson(result.data), user.class);
                         ImageView mi=findViewById(R.id.userImg);
@@ -347,11 +350,9 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                         LocalState.putInt("uid", me.getUid());
                         LocalState.apply();
                     }
-//                        else if ((int)result.data==401){toLogin();}
                     else if(result.iu==0){
                         toLogin();
                     }}});
-
         return me;
     }
     public void toLogin(){

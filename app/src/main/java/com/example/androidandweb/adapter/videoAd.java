@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.androidandweb.O_solidObjects.VSmail;
 import com.example.androidandweb.O_solidObjects.video;
 import com.example.androidandweb.R;
 import com.example.androidandweb.http.PackageHttp;

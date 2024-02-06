@@ -1,8 +1,6 @@
 package com.example.androidandweb.Activity;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -17,15 +15,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
-import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
-import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.O_solidObjects.video;
 import com.example.androidandweb.R;
 import com.example.androidandweb.http.FileUploadTask;
 import com.example.androidandweb.http.PackageHttp;
 import com.example.androidandweb.http.postJwt;
-import com.example.androidandweb.http.postNoJwt;
 import com.google.gson.Gson;
 
 import java.util.Objects;
@@ -58,37 +55,40 @@ public class videoSubmit extends AppCompatActivity implements View.OnClickListen
             vShow(vid);
             TextView title=findViewById(R.id.title);
             title.setText("申请修正资源");
-
         }
         Button VImgChange=findViewById(R.id.selectVImg);
         VImgChange.setOnClickListener(this);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 在页面从后台返回前台时触发的操作
+        // 例如，显示一个 Toast 消息
 
+    }
     private void vShow(int vid) {
         video s = new video();
         s.setVid(vid);
         String url="/videoShow";
-        postJwt.sendPostRequest(url, s, new postJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
-                    if (result.iu != 0) {//接收成功
-                        String video = new Gson().toJson(result.data);
+        postJwt.sendPostRequest(url, s, result -> {
+            // 处理返回的Result对象
+            if (result != null) {
+                if (result.iu != 0) {//接收成功
+                    String video = new Gson().toJson(result.data);
 //                        Type type = new TypeToken<user>(){}.getType();
-                        v = new Gson().fromJson(video, video.class);
-                        TextView vName=findViewById(R.id.vName);
-                        TextView vIntro=findViewById(R.id.vIntro);
+                    v = new Gson().fromJson(video, video.class);
+                    TextView vName=findViewById(R.id.vName);
+                    TextView vIntro=findViewById(R.id.vIntro);
 //                        TextView vUrl=findViewById(R.id.vUrl);
-                        vName.setText(v.getVName());
-                        vIntro.setText(v.getVIntro());
+                    vName.setText(v.getVName());
+                    vIntro.setText(v.getVIntro());
 //                        vUrl.setText(v.getVUrl());
-                        ImageView img =findViewById(R.id.img);
-                        PackageHttp packageHttp=new PackageHttp();
-                        String imgUrl= packageHttp.toImgUrl(v.getImg()) ;
-                        imgUrl5=v.getImg();
-                        Log.i("图片",imgUrl);
-                        Glide.with(videoSubmit.this).load(imgUrl).into(img);
-                    }
+                    ImageView img =findViewById(R.id.img);
+                    PackageHttp packageHttp=new PackageHttp();
+                    String imgUrl= packageHttp.toImgUrl(v.getImg()) ;
+                    imgUrl5=v.getImg();
+                    Log.i("图片",imgUrl);
+                    Glide.with(videoSubmit.this).load(imgUrl).into(img);
                 }
             }
         });
@@ -132,18 +132,16 @@ public class videoSubmit extends AppCompatActivity implements View.OnClickListen
         if (imgIs==2){
             v.setImg(imgUrl5);
         }
-        postJwt.sendPostRequest(url2, v, new postJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
-                    if(result.iu!=0){//上传成功
-                        Toast.makeText(videoSubmit.this, "服务器上传成功", Toast.LENGTH_SHORT).show();}
-                    else {
-                        Toast.makeText(videoSubmit.this, result.msg, Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(videoSubmit.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
+        postJwt.sendPostRequest(url2, v, result -> {
+            // 处理返回的Result对象
+            if (result != null) {
+                if(result.iu!=0){//上传成功
+                    Toast.makeText(videoSubmit.this, "服务器上传成功", Toast.LENGTH_SHORT).show();}
+                else {
+                    Toast.makeText(videoSubmit.this, result.msg, Toast.LENGTH_LONG).show();
                 }
+            } else {
+                Toast.makeText(videoSubmit.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
             }
         });
     }

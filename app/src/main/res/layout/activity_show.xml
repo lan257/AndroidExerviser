@@ -24,7 +24,7 @@
             android:layout_height="match_parent" />
 
         <ImageView
-            android:id="@+id/youImger"
+            android:id="@+id/youImager"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/circle_shape" />
@@ -39,7 +39,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/chatAgain"
+            android:id="@+id/concern"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -71,6 +71,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <!--标签放在这里，应该是RecyclerView-->
+
             <ListView
                 android:id="@+id/actShow"
                 android:layout_width="match_parent"

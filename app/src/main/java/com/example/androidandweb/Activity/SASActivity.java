@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidandweb.O_solidObjects.activity;
-import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
 import com.example.androidandweb.O_solidObjects.simpleObjects.aCon;
 import com.example.androidandweb.R;
 import com.example.androidandweb.adapter.aConAd;
@@ -37,6 +35,13 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
     int imgThing;
 
     aCon titleImg=new aCon(2,"/img/1e8d58b4b9746db74773ebab1d7cf90e1661172578520.jpeg",null);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 在页面从后台返回前台时触发的操作
+        // 例如，显示一个 Toast 消息
+        goStart();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,7 +147,7 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
         activity.STitleImg(titleImg1);
         activity.SContent(aConList1);
         activity.SChangeTime();
-        Log.i("为什么",""+activity);
+//        Log.i("为什么",""+activity);
         //设置标签
         postJwt.sendPostRequest("/aConListSubmit", activity, result -> {
             // 处理返回的Result对象

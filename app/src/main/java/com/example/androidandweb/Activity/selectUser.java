@@ -1,18 +1,16 @@
 package com.example.androidandweb.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.R;
 import com.example.androidandweb.adapter.userAd;
@@ -34,6 +32,13 @@ public class selectUser extends AppCompatActivity implements View.OnClickListene
         Button selectU=findViewById(R.id.AAWSelect);
         selectU.setOnClickListener(this);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 在页面从后台返回前台时触发的操作
+        // 例如，显示一个 Toast 消息
+
+    }
     public void onClick(View v){
         if(v.getId()==R.id.AAWSelect){
             Log.i("","触发点击事件");
@@ -52,37 +57,32 @@ public class selectUser extends AppCompatActivity implements View.OnClickListene
         s.setNickname(nickName);
         String url="/selectUser";
         Log.i("触发查询事件",s.toString());
-        postJwt.sendPostRequest(url, s, new postJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
-                    if(result.iu!=0){
-                        String List= new Gson().toJson(result.data);
-                        Type type = new TypeToken<List<user>>(){}.getType();
-                        List<user> userList = new Gson().fromJson(List, type);
-                        // 现在你可以使用userList了
-                        // ...
+        postJwt.sendPostRequest(url, s, result -> {
+            // 处理返回的Result对象
+            if (result != null) {
+                if(result.iu!=0){
+                    String List= new Gson().toJson(result.data);
+                    Type type = new TypeToken<List<user>>(){}.getType();
+                    List<user> userList = new Gson().fromJson(List, type);
+                    // 现在你可以使用userList了
+                    // ...
 
 
-                        userAd adapter=new userAd(com.example.androidandweb.Activity.selectUser.this, R.layout.s_layout_user_show,userList);
-                        ListView listView=findViewById(R.id.userShow);
-                        listView.setAdapter(adapter);
-                        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                            @Override
-                            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    userAd adapter=new userAd(selectUser.this, R.layout.s_layout_user_show,userList);
+                    ListView listView=findViewById(R.id.userShow);
+                    listView.setAdapter(adapter);
+                    listView.setOnItemLongClickListener((parent, view, position, id) -> {
 
-                                user u= userList.get(position);
-                                //跳转chatActivity页面
-                                Intent intent=new Intent(selectUser.this, chatActivity.class);
-                                intent.putExtra("you",u.getUid());
-                                startActivity(intent);
-                                return false;
-                            }
-                        });
-                        Toast.makeText(selectUser.this, "查询成功", Toast.LENGTH_SHORT).show();}
-                } else {
-                    Toast.makeText(selectUser.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
-                }
+                        user u= userList.get(position);
+                        //跳转chatActivity页面
+                        Intent intent=new Intent(selectUser.this, chatActivity.class);
+                        intent.putExtra("you",u.getUid());
+                        startActivity(intent);
+                        return false;
+                    });
+                    Toast.makeText(selectUser.this, "查询成功", Toast.LENGTH_SHORT).show();}
+            } else {
+                Toast.makeText(selectUser.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
             }
         });
 

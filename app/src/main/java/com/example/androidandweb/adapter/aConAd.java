@@ -2,12 +2,10 @@ package com.example.androidandweb.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,9 +20,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class aConAd extends ArrayAdapter<aCon> {
-    private int re;
+    private final int re;
 
-    private Context context;
+    private final Context context;
     int changeId;
 
     public aConAd (Context con, int textViewResourceId, List<aCon> aConList ,int changeId){

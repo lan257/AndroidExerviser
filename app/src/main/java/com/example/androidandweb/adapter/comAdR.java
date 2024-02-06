@@ -7,19 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.androidandweb.O_solidObjects.lOperator;
 import com.example.androidandweb.O_solidObjects.simpleObjects.commit;
 import com.example.androidandweb.O_solidObjects.simpleObjects.reply;
 import com.example.androidandweb.R;
 import com.example.androidandweb.http.ImageLoader;
 import com.example.androidandweb.http.PackageHttp;
-import com.example.androidandweb.http.getJwt;
-import com.example.androidandweb.http.postJwt;
 
 import java.util.List;
 import java.util.Objects;

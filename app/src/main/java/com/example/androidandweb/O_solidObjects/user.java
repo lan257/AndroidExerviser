@@ -13,19 +13,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class user implements Serializable {
-
+    int thing;
+    boolean loveIs;
     int uid;
     String nickname;
     int type=2;
     String password;
-    String loveMusic;
-    String loveMovie;
-    String fun;
-    String concern;
+    int fan;
+    int concern;
     String create;
     String change;
     String img;
     String email;
+    String proMotto;
+    int love;
+
 
     public user(String email, String password) {
         this.email=email;

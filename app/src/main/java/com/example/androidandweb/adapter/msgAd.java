@@ -2,7 +2,6 @@ package com.example.androidandweb.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.androidandweb.O_solidObjects.simpleObjects.msg;
-import com.example.androidandweb.O_solidObjects.video;
 import com.example.androidandweb.R;
 import com.example.androidandweb.http.PackageHttp;
 

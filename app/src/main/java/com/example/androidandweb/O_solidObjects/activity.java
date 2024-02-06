@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class activity {
     boolean loveIs;
+    int thing;
     user u;
     int aid;
     int uid;

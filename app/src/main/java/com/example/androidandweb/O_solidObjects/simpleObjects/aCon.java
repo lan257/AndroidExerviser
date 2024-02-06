@@ -1,6 +1,5 @@
 package com.example.androidandweb.O_solidObjects.simpleObjects;
 
-import android.content.SharedPreferences;
 import android.net.Uri;
 
 import com.example.androidandweb.Q_sql.mySql;

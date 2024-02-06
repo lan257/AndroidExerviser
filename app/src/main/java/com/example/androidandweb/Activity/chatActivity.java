@@ -21,6 +21,7 @@ import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.R;
 import com.example.androidandweb.adapter.msgAd;
 import com.example.androidandweb.http.PackageHttp;
+import com.example.androidandweb.http.getJwt;
 import com.example.androidandweb.http.postJwt;
 import com.google.gson.Gson;
 
@@ -41,21 +42,23 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
         sent.setOnClickListener(this);
         Button again=findViewById(R.id.chatAgain);
         again.setOnClickListener(this);
+        findViewById(R.id.youImger).setOnClickListener(this);
     }
 
     private void getUser() {
         String url = "/getUserJwt";
-        byte s = 0;
-        postJwt.sendPostRequest(url, s, result -> {
+        getJwt.sendGetRequest(url, result -> {
             // 处理返回的Result对象
             if (result != null) {
-                Log.i("个人信息1",result.iu+result.msg+result.data);
-                if(result.iu==1){
-                    String user= new Gson().toJson(result.data);
-                    me= new Gson().fromJson(user, user.class);
-                }}
+                Log.i("个人信息1", result.iu + result.msg + result.data);
+                if (result.iu == 1) {
+                    String user = new Gson().toJson(result.data);
+                    me = new Gson().fromJson(user, user.class);
+                }
+            }
             youShow();
-            showChat();});}
+            showChat();
+        });}
 
     @Override
     public void onClick(View v) {
@@ -64,7 +67,16 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (v.getId()==R.id.chatAgain){
            again();
-    }}
+    }if (v.getId()==R.id.youImger){
+            toIntent(userShow.class,"show",you.getUid());}
+        }
+
+    private void toIntent(Class<?> Class, String thing, int id) {
+        Intent intent=new Intent(this,Class);
+        intent.putExtra("thing",thing);
+        intent.putExtra("id",id);
+        startActivity(intent);
+    }
  void again(){
     chat c=chat;
     postJwt.sendPostRequest("/selectChat", c, result -> {
@@ -116,15 +128,13 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
         user u=new user();
         u.setUid(youId);
         String url="/uid/selectUser";
-        postJwt.sendPostRequest(url, u, new postJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
-                    if(result.iu!=0){
-                        String user= new Gson().toJson(result.data);
-//                        Type type = new TypeToken<user>(){}.getType();
-                       you= new Gson().fromJson(user, user.class);
-                    }}}});
+        postJwt.sendPostRequest(url, u, result -> {
+            // 处理返回的Result对象
+            if (result != null) {
+                if(result.iu!=0){
+                    String user= new Gson().toJson(result.data);
+                   you= new Gson().fromJson(user, user.class);
+                }}});
         url="/selectChat";
         chat sChat=new chat(youId);
         postJwt.sendPostRequest(url, sChat, result -> {

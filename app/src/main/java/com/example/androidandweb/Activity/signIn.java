@@ -1,14 +1,11 @@
 package com.example.androidandweb.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,7 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.Q_sql.mySql;
 import com.example.androidandweb.R;

@@ -10,8 +10,8 @@ android {
         applicationId = "com.example.androidandweb"
         minSdk = 28
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.3内测版"
+        versionCode = 5
+        versionName = "1.4稳定版"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

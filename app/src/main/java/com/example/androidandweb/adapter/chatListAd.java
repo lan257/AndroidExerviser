@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.androidandweb.O_solidObjects.simpleObjects.chatList;
-import com.example.androidandweb.O_solidObjects.simpleObjects.msg;
-import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.R;
 import com.example.androidandweb.http.PackageHttp;
 

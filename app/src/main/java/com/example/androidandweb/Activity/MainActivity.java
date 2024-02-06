@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
 import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.Q_sql.mySql;
 import com.example.androidandweb.R;
@@ -161,12 +160,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 auto.setChecked(true);
 
                     // 在触发登录前等待5秒
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(auto.isChecked()){
-                                login();
-                            }
+                    new Handler().postDelayed(() -> {
+                        if(auto.isChecked()){
+                            login();
                         }
                     }, 3000);
                 }}}}}}}

@@ -9,7 +9,7 @@
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="40dp"
+    android:textSize="40sp"
     android:background="@color/s111"
     android:gravity="center"
     android:text="发布活动"
@@ -18,7 +18,7 @@
         android:id="@+id/titleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:gravity="center"
         android:hint="输入标题"/>
     <View
@@ -31,12 +31,13 @@
         android:layout_weight="1"
         android:rotationX="0"
         tools:ignore="MissingConstraints" />
+
     <EditText
         android:id="@+id/updateText"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2"
-        android:hint="请输入文本"/>
+        android:layout_height="wrap_content"
+        android:hint="请输入文本"
+        android:minHeight="48dp" />
     <View
         android:layout_width="0dp"
         android:layout_height="20dp"/>

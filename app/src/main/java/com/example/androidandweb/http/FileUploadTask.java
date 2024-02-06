@@ -3,8 +3,6 @@ package com.example.androidandweb.http;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
-
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,13 +11,9 @@ import java.net.URL;
 
 public class FileUploadTask extends AsyncTask<Void, Void, Void> {
 
-    private String serverUrl;
-    private String filePath;
+    private final String serverUrl;
+    private final String filePath;
     int x;
-
-    public int getX() {
-        return x;
-    }
 
     String jwt;
     public FileUploadTask(String serverUrl, String filePath) {

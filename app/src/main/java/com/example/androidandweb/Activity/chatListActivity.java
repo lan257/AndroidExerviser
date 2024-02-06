@@ -26,6 +26,13 @@ import java.util.List;
 public class chatListActivity extends AppCompatActivity {
     List<chatList> chatListS;
     @Override
+    protected void onResume() {
+        super.onResume();
+        // 在页面从后台返回前台时触发的操作
+        // 例如，显示一个 Toast 消息
+        goo();
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);

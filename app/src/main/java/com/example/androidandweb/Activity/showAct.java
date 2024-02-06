@@ -48,7 +48,9 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
     String url;
     ImageView love;
     int aid,x=0,y=0,z=0,m=0;
-    TextView comUnfold;
+    boolean uIs;
+    TextView comUnfold,concern;
+    ImageView imageView;
     Type type;
     commit commit=new commit();
     List<commit> commitList;
@@ -58,10 +60,14 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_show);
         setButtonClick();
         actShow();
-        getCom();
-        Log.i("奇怪",act+"");
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 在页面从后台返回前台时触发的操作
+        // 例如，显示一个 Toast 消息
+        actShow();
+    }
     private void setButtonClick() {
         Intent intent=getIntent();
         Log.i("activityAid",""+intent.getIntExtra("aid",1));
@@ -77,13 +83,15 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
         setClick(R.id.onlyUser);
         setClick(R.id.max);
         setClick(R.id.love);
+        setClick(R.id.youImager);
+        setClick(R.id.concern);
     }
 
     @Override
     public void onClick(View v) {
-        showS(v,R.id.byLove);
-        showS(v,R.id.byTime);
-        showS(v,R.id.onlyUser);
+        showS(v,R.id.byLove,1);
+        showS(v,R.id.byTime,2);
+        showS(v,R.id.onlyUser,3);
         if (isClick(v,R.id.comUnfold)&&x==1){
             comController();//评论区折叠
         }
@@ -103,39 +111,71 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
             actAddLove();
         }
         if (isClick(v,R.id.delImg)){commit.setImg("");findViewById(R.id.showImg).setVisibility(View.GONE);}
+        if (isClick(v,R.id.concern)){
+            userConcern();
+        }
+        if (isClick(v,R.id.youImager)){
+            toIntent(userShow.class,"show",act.getU().getUid());}
     }
 
-    private void actAddLove() {
-        lOperator lp=new lOperator(act.getAid(),2,1,0);
-        if (act.isLoveIs()){
-            url = "/Love--";
-            postJwt.sendPostRequest(url,lp, result1 -> {
+    private void userConcern() {
+        if (!uIs){
+            lOperator lp=new lOperator(act.getU().getUid(),1,act.getU().isLoveIs()?2:1,0);
+            String url = "/Love+-";
+            postJwt.sendPostRequest(url, lp, result1 -> {
                 // 处理返回的Result对象
                 if (result1 != null) {
-                    if (result1.iu!=0) {
-                        act.setLoveIs(false);
-                        Glide.with(this).load(R.drawable.love).into(love);
-                        Toast.makeText(this, "取消收藏", Toast.LENGTH_SHORT).show();
+                    if (result1.iu != 0) {
+                        if (act.getU().isLoveIs()) {
+                            act.getU().setLoveIs(false);
+                            concern.setText(act.getU().isLoveIs()?"已关注":"+关注");
+                            Toast.makeText(this, "取消关注", Toast.LENGTH_SHORT).show();
+                        } else {
+                            act.getU().setLoveIs(true);
+                            concern.setText(act.getU().isLoveIs()?"已关注":"+关注");
+                            Toast.makeText(this, "关注成功", Toast.LENGTH_SHORT).show();
+                        }
                     }}});}
         else {
-            String url1 = "/Love++";
-            postJwt.sendPostRequest(url1,lp, result1 -> {
-                // 处理返回的Result对象
-                if (result1 != null) {
-                    if (result1.iu!=0) {
-                        act.setLoveIs(true);
-                        Glide.with(this).load(R.drawable.loved).into(love);
-                        Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();}
-                }});
+            Toast.makeText(this, "编辑活动信息", Toast.LENGTH_SHORT).show();
+            toIntent(index.class,"编辑活动信息",act.getU().getUid());
         }
     }
 
-    private void showS(View v,int s) {
+    private void toIntent(Class<?> Class, String thing, int id) {
+        Intent intent=new Intent(this,Class);
+        intent.putExtra("thing",thing);
+        intent.putExtra("id",id);
+        startActivity(intent);
+    }
+
+    private void actAddLove() {
+        lOperator lp=new lOperator(act.getAid(),2,act.isLoveIs()?2:1,0);
+        url = "/Love+-";
+        postJwt.sendPostRequest(url, lp, result1 -> {
+            // 处理返回的Result对象
+            if (result1 != null) {
+                if (result1.iu != 0) {
+                    if (act.isLoveIs()) {
+                        act.setLoveIs(false);
+                        Glide.with(this).load(R.drawable.love).into(love);
+                        Toast.makeText(this, "取消收藏", Toast.LENGTH_SHORT).show();
+                    } else {
+                        act.setLoveIs(true);
+                        Glide.with(this).load(R.drawable.loved).into(love);
+                        Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
+                    }
+                }}});
+    }
+
+    private void showS(View v,int s,int th) {
         if (isClick(v,s)){
         findViewById(R.id.byTime).setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         findViewById(R.id.byLove).setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         findViewById(R.id.onlyUser).setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-        findViewById(s).setBackgroundColor(ContextCompat.getColor(this, R.color.s111));}
+        findViewById(s).setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
+        act.setThing(th);
+        getCom();}
     }
 
     //加载活动
@@ -164,31 +204,18 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
                     recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
                     comAdR adapter = new comAdR(this, commitList);
                     adapter.setOnItemClickListener(position -> {
-                        commit item =commitList.get(position);
-                        lOperator lp=new lOperator(item.getCid(),3,1,0);
-                        if (item.isLike()){
-                            String url1 = "/Love--";
-                            postJwt.sendPostRequest(url1,lp, result1 -> {
-                                // 处理返回的Result对象
-                                if (result1 != null) {
-                                    if (result1.iu!=0) {
-                                        getCom();
-                                        Toast.makeText(this, "取消点赞", Toast.LENGTH_SHORT).show();
-                                    }}});}
-                        else {
-                            String url1 = "/Love++";
-                            postJwt.sendPostRequest(url1,lp, result1 -> {
-                                // 处理返回的Result对象
-                                if (result1 != null) {
-                                    if (result1.iu!=0) {
-                                        getCom();
-                                        Toast.makeText(this, "点赞成功", Toast.LENGTH_SHORT).show();}
-                                }});}
-                        // 处理按钮点击事件
-                        // position 表示点击的按钮所在的列表项位置
-                    });
+                        commit item = commitList.get(position);
+                        lOperator lp = new lOperator(item.getCid(), 3, item.isLike() ? 2 : 1, 0);
+                        String url1 = "/Love+-";
+                        postJwt.sendPostRequest(url1, lp, result1 -> {
+                            // 处理返回的Result对象
+                            if (result1 != null) {
+                                if (result1.iu != 0) {
+                                    getCom();
+                                    Toast.makeText(this, lp.getTid() == 1 ? "点赞成功" : "取消点赞", Toast.LENGTH_SHORT).show();}}});
+
+                });
                     recyclerView.setAdapter(adapter);
-                    findViewById(R.id.byLove).setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
                 }}});
     }
     //发送评论
@@ -216,8 +243,7 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
                         commit =new commit();
                         //刷新评论区
                         getCom();
-                    }}});
-        }
+                    }}});}
     }
 
     //处理图片选择
@@ -255,19 +281,26 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
         ListView listView=findViewById(R.id.actShow);
         listView.setAdapter(adapter);
         setHigh();
+        act.setThing(1);//love
+        getCom();
+        findViewById(R.id.byLove).setBackgroundColor(ContextCompat.getColor(this, R.color.s111));
     }
 
     //加载活动简单信息
     @SuppressLint("SetTextI18n")
     private void showSimple() {
         //头像展示
-        ImageView imageView=findViewById(R.id.youImger);Glide.with(this).load(new PackageHttp().toImgUrl(act.getU().getImg())).circleCrop().into(imageView);
+        imageView=findViewById(R.id.youImager);Glide.with(this).load(new PackageHttp().toImgUrl(act.getU().getImg())).circleCrop().into(imageView);
         love=findViewById(R.id.love);
         if(act.isLoveIs()){Glide.with(this).load(R.drawable.loved).into(love);}
         //昵称展示
         TextView nickname= findViewById(R.id.user_nickname);nickname.setText(act.getU().getNickname());
         TextView titleText= findViewById(R.id.titleText);titleText.setText(act.getTitleText());
         TextView time= findViewById(R.id.createTime);time.setText("发布于："+new PackageHttp().formatTime(act.getCreateTime()) +"  编辑于:"+new PackageHttp().formatTime(act.getChangeTime()));
+        uIs= act.getUid() == mySql.getSharedPreferences("LocalState").getInt("uid", 1);
+        concern=findViewById(R.id.concern);
+//        Toast.makeText(this, ""+act.getU().isLoveIs(), Toast.LENGTH_SHORT).show();
+        concern.setText(uIs?"编辑":act.getU().isLoveIs()?"已关注":"+关注");
     }
     //展开评论区
     private void comController() {

@@ -1,6 +1,5 @@
 package com.example.androidandweb.Activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,9 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.androidandweb.O_solidObjects.VSmail;
-import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
 import com.example.androidandweb.R;
-import com.example.androidandweb.http.PackageHttp;
 import com.example.androidandweb.http.postJwt;
 
 import java.util.Objects;
@@ -31,7 +28,7 @@ public class VSmailSubmit extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vsmail_submit);
         intent=getIntent();
-        Log.i("查询参数",intent.getStringExtra("img")+intent.getStringExtra("VName")+intent.getStringExtra("VIntro"));
+//        Log.i("查询参数",intent.getStringExtra("img")+intent.getStringExtra("VName")+intent.getStringExtra("VIntro"));
         start(intent);
         Button VSSubmit=findViewById(R.id.AAWVSSubmit);
         VSSubmit.setOnClickListener(this);
@@ -47,7 +44,13 @@ public class VSmailSubmit extends AppCompatActivity implements View.OnClickListe
             startChange();
         }
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 在页面从后台返回前台时触发的操作
+        // 例如，显示一个 Toast 消息
+        start(intent);
+    }
     private void startChange() {
         EditText name=findViewById(R.id.VSName);
         TextView url=findViewById(R.id.VSUrl);
@@ -97,18 +100,16 @@ public class VSmailSubmit extends AppCompatActivity implements View.OnClickListe
         vs.setVid(intent.getIntExtra("vid",1));
         if (sid!=0){vs.setSid(sid);}
         Log.i("上传数据",""+vs);
-        postJwt.sendPostRequest(url, vs, new postJwt.OnResultListener() {
-            public void onResult(Result result) {
-                // 处理返回的Result对象
-                if (result != null) {
-                    if(result.iu!=0){//上传成功
-                        Toast.makeText(VSmailSubmit.this, "服务器上传成功", Toast.LENGTH_SHORT).show();}
-                    else {
-                        Toast.makeText(VSmailSubmit.this, result.msg, Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(VSmailSubmit.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
+        postJwt.sendPostRequest(url, vs, result -> {
+            // 处理返回的Result对象
+            if (result != null) {
+                if(result.iu!=0){//上传成功
+                    Toast.makeText(VSmailSubmit.this, "服务器上传成功", Toast.LENGTH_SHORT).show();}
+                else {
+                    Toast.makeText(VSmailSubmit.this, result.msg, Toast.LENGTH_LONG).show();
                 }
+            } else {
+                Toast.makeText(VSmailSubmit.this, "服务器连接失败", Toast.LENGTH_SHORT).show();
             }
         });
     }
