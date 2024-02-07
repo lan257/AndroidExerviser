@@ -49,7 +49,6 @@ public class VSmailSubmit extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         // 在页面从后台返回前台时触发的操作
         // 例如，显示一个 Toast 消息
-        start(intent);
     }
     private void startChange() {
         EditText name=findViewById(R.id.VSName);

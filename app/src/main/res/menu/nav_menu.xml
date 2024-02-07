@@ -6,17 +6,12 @@
         android:id="@+id/userShow"
         android:title="打开主页"/>
     <item
+        android:visible="false"
         android:id="@+id/select4"
         android:title="浏览记录"/>
-<!--    <item-->
-<!--        android:id="@+id/selectUser"-->
-<!--        android:title="查询用户"/>-->
     <item
         android:id="@+id/VideoSubmit"
         android:title="上传视频资源"/>
-<!--    <item-->
-<!--        android:id="@+id/selectVideo"-->
-<!--        android:title="上传视频资源"/>-->
     <item
         android:id="@+id/cont"
         android:title="发布话题"/>

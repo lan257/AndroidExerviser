@@ -71,6 +71,9 @@ public class selectUser extends AppCompatActivity implements View.OnClickListene
                     userAd adapter=new userAd(selectUser.this, R.layout.s_layout_user_show,userList);
                     ListView listView=findViewById(R.id.userShow);
                     listView.setAdapter(adapter);
+                    if (userList.size()==0){
+                        Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+                    }
                     listView.setOnItemLongClickListener((parent, view, position, id) -> {
 
                         user u= userList.get(position);

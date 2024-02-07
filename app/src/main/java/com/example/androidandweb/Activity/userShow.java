@@ -21,6 +21,7 @@ import com.example.androidandweb.Q_sql.mySql;
 import com.example.androidandweb.R;
 import com.example.androidandweb.adapter.RecyclerItemClickListener;
 import com.example.androidandweb.adapter.actAdR;
+import com.example.androidandweb.http.ImageLoader;
 import com.example.androidandweb.http.PackageHttp;
 import com.example.androidandweb.http.postJwt;
 import com.google.common.reflect.TypeToken;
@@ -36,7 +37,7 @@ public class userShow extends AppCompatActivity implements View.OnClickListener{
     List<activity> activityList;
     TextView love,fan;
     RecyclerView recyclerView;
-//    TextView nickname,proMotto,comcern,fan,getLove;
+//    TextView nickname,proMotto,concern,fan,getLove;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,6 @@ public class userShow extends AppCompatActivity implements View.OnClickListener{
         super.onResume();
         // 在页面从后台返回前台时触发的操作
         // 例如，显示一个 Toast 消息
-        userDataShow();
     }
     private void setButtonClick() {
         setClick(R.id.concern);
@@ -78,7 +78,7 @@ public class userShow extends AppCompatActivity implements View.OnClickListener{
             changeColor(R.id.actLove);
         }else if (v.getId()==R.id.waitSent){
             u.setThing(4);
-//            showSentAct();
+            showSentAct();
             changeColor(R.id.waitSent);
         }
     }
@@ -95,6 +95,9 @@ public class userShow extends AppCompatActivity implements View.OnClickListener{
                     recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
                     actAdR adapter = new actAdR(this, activityList);
                     recyclerView.setAdapter(adapter);
+                    if (activityList.size()==0){
+                        Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+                    }
                     recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {

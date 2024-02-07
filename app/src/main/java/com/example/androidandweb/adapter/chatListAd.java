@@ -38,7 +38,8 @@ public class chatListAd extends ArrayAdapter<chatList> {
         Log.i("图片？",cL+"");
         Glide.with(context).load(url).circleCrop().into(img);
         nickname.setText(cL.getUser().getNickname());
-        String DataTime=new PackageHttp().formatTime(cL.getMsg().getTime());
+        new PackageHttp();
+        String DataTime= PackageHttp.formatTime(cL.getMsg().getTime());
         time.setText(DataTime);
         text.setText(cL.getMsg().getText());
         return view;

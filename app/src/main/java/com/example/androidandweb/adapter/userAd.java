@@ -36,8 +36,6 @@ public class userAd extends ArrayAdapter<user> {
         name.setText(u.getNickname());
         PackageHttp packageHttp = new PackageHttp();
         String url=packageHttp.toImgUrl(u.getImg())  ;
-
-        Log.i("图片", url);
         Glide.with(context).load(url).circleCrop().into(img);
         return view;
     }

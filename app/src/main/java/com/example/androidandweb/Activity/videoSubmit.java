@@ -84,8 +84,7 @@ public class videoSubmit extends AppCompatActivity implements View.OnClickListen
                     vIntro.setText(v.getVIntro());
 //                        vUrl.setText(v.getVUrl());
                     ImageView img =findViewById(R.id.img);
-                    PackageHttp packageHttp=new PackageHttp();
-                    String imgUrl= packageHttp.toImgUrl(v.getImg()) ;
+                    String imgUrl=new PackageHttp().toImgUrl(v.getImg()) ;
                     imgUrl5=v.getImg();
                     Log.i("图片",imgUrl);
                     Glide.with(videoSubmit.this).load(imgUrl).into(img);

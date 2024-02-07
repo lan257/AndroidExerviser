@@ -32,15 +32,14 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
     List<aCon> aConList=new ArrayList<>();
     int changId=0;//操作修改的文本id；
     EditText updataText;
-    int imgThing;
-
+    int imgThing,sis=0;
+    boolean ImgIs;
     aCon titleImg=new aCon(2,"/img/1e8d58b4b9746db74773ebab1d7cf90e1661172578520.jpeg",null);
     @Override
     protected void onResume() {
         super.onResume();
         // 在页面从后台返回前台时触发的操作
         // 例如，显示一个 Toast 消息
-        goStart();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +113,9 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
     }
     //确认上传弹窗
     private void makeSureAgain() {
-        String title="确定上传",text="确定上传文件",select1="确认",select2="取消";
+        String title="确定上传",text="确定上传活动",select1="确认",select2="取消";
+        if (!ImgIs){text="尚未选择展示图片，是否确定上传活动(确定将选择第一张图片作为展示图片，如没有第一张图片，将没有展示图片)";
+            for (aCon a:aConList) {if (a.getType()==2){titleImg=a;break;}}}
         new AlertDialog.Builder(SASActivity.this).setTitle(title).setMessage(text)
         .setPositiveButton(select1, (dialog, which) -> {//事件一
             ActivitySubmit();
@@ -124,38 +125,45 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
     }
     //上传服务器
     private void ActivitySubmit() {
-
-        //上传Activity图片内容
-        imgListSubmit();
-        //上传Activity数据库内容，即aConList
-        aConListSubmit();
-
+        if (sis%3==0) {
+            sis++;
+            //上传Activity数据库内容，即aConList
+            aConListSubmit();
+        }else {
+            Toast.makeText(this, "上传中，请稍后", Toast.LENGTH_SHORT).show();
+        }
     }
     //文本上传服务器
     private void aConListSubmit() {
         aCon titleImg1=new aCon(titleImg.getType(),titleImg.getCon(),titleImg.getUri());
         titleImg1.conChange();
-        Log.i("为什么",""+titleImg1);
         List<aCon> aConList1=new ArrayList<>();
         for (aCon a:aConList) {
             aConList1.add(new aCon(a.getType(),a.getCon(),a.getUri()));
         }
-        for (aCon a:aConList1) {a.conChange();}
+        for (aCon a:aConList1) {
+        if (Objects.equals(a.getCon(), "")){aConList1.remove(a);}else {
+            a.conChange();}
+        }
         EditText TitleText=findViewById(R.id.titleText);
         activity activity=new activity();
         activity.setTitleText(TitleText.getText().toString());
         activity.STitleImg(titleImg1);
         activity.SContent(aConList1);
         activity.SChangeTime();
-//        Log.i("为什么",""+activity);
         //设置标签
         postJwt.sendPostRequest("/aConListSubmit", activity, result -> {
             // 处理返回的Result对象
             if (result != null) {
                 if(result.iu!=0){
-                    Toast.makeText(SASActivity.this, result.msg, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SASActivity.this,index.class));
-                }}});}
+                    sis++;
+                    //上传Activity图片内容
+                    imgListSubmit();
+                }else   {
+                    Toast.makeText(this, "上传失败", Toast.LENGTH_SHORT).show();
+                }}else {
+                    Toast.makeText(this, "上传失败", Toast.LENGTH_SHORT).show();
+                }});}
     //图片上传服务器
     private void imgListSubmit() {
         String url="/ActImgSubmit";
@@ -169,6 +177,9 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
                 FileUploadTask fileUploadTask = new FileUploadTask(url,a.getCon());
                 fileUploadTask.execute();}
         }
+        sis++;
+            Toast.makeText(SASActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(SASActivity.this,index.class));
     }
     //增加一张图片
     public void addImg(){
@@ -183,8 +194,6 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
     }
     //初始化操作
     private void goStart() {
-        //判断来意做出判断
-        //现在假如是发布活动
         aConList.add(new aCon(1,""));
         showContextListView(aConList);
         updataText=findViewById(R.id.updateText);
@@ -201,6 +210,9 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
     private void showContextListView(List<aCon> aCList) {
         aConAd adapter=new aConAd(SASActivity.this, R.layout.s_acon,aCList,changId);
         ListView listView=findViewById(R.id.ActivityContextShow);
+        if (aCList.size()==0){
+            Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+        }else{
         listView.setAdapter(adapter);
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
             aCon ac= aCList.get(position);
@@ -217,7 +229,7 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
                 changId=position;
                 updataText.setText(ac.getCon());
                 showContextListView(aConList);
-        }});
+        }});}
         int lastItem = adapter.getCount() - 1;
         if (lastItem >= 0) {
             listView.setSelection(changId);}}
@@ -248,7 +260,7 @@ public class SASActivity extends AppCompatActivity implements View.OnClickListen
             } else if(imgThing==3){
                 titleImg.setCon(getRealPathFromURI(selectedImageUri));
                 titleImg.setUri(selectedImageUri);
-                Log.i("为什么",""+titleImg);
+                ImgIs=true;
         }}
     }
 

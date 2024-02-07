@@ -101,26 +101,25 @@
 
             <TextView
                 android:id="@+id/comUnfold"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="评论区"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/onlyUser"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="只看作者"
                 android:textSize="15sp" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/byTime"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.2"
                 android:layout_height="wrap_content"
                 android:text="按时间排序"
                 android:textSize="15sp" />
@@ -128,7 +127,8 @@
 
             <TextView
                 android:id="@+id/byLove"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.2"
                 android:layout_height="wrap_content"
                 android:text="按点赞排序"
                 android:textSize="15sp" />

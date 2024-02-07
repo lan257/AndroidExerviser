@@ -51,6 +51,7 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
     boolean uIs;
     TextView comUnfold,concern;
     ImageView imageView;
+    boolean s=false;
     Type type;
     commit commit=new commit();
     List<commit> commitList;
@@ -66,7 +67,7 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
         super.onResume();
         // 在页面从后台返回前台时触发的操作
         // 例如，显示一个 Toast 消息
-        actShow();
+//        actShow();
     }
     private void setButtonClick() {
         Intent intent=getIntent();
@@ -99,7 +100,11 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
             changeMax();
         }
         if (isClick(v,R.id.sentCom)){
-            sentCom();//发送评论
+            if (s) {
+                Toast.makeText(this, "上传中，请稍后", Toast.LENGTH_SHORT).show();
+            }else {
+                sentCom();//发送评论
+            }
         }
         if (isClick(v,R.id.add)){
             unfold();//输入框扩展
@@ -197,10 +202,11 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
         postJwt.sendPostRequest(url, act, result -> {
             // 处理返回的Result对象
             if (result != null) {
-                if (result.iu!=0) {
-                    type = new TypeToken<List<commit>>(){}.getType();
+                if (result.iu != 0) {
+                    type = new TypeToken<List<commit>>() {
+                    }.getType();
                     commitList = new Gson().fromJson(new Gson().toJson(result.data), type);
-                    RecyclerView recyclerView=findViewById(R.id.comShow);
+                    RecyclerView recyclerView = findViewById(R.id.comShow);
                     recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
                     comAdR adapter = new comAdR(this, commitList);
                     adapter.setOnItemClickListener(position -> {
@@ -211,29 +217,35 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
                             // 处理返回的Result对象
                             if (result1 != null) {
                                 if (result1.iu != 0) {
-                                    getCom();
-                                    Toast.makeText(this, lp.getTid() == 1 ? "点赞成功" : "取消点赞", Toast.LENGTH_SHORT).show();}}});
-
-                });
-                    recyclerView.setAdapter(adapter);
-                }}});
+                                    item.setLove(lp.getTid() == 1 ? item.getLove() + 1 : item.getLove() - 1);
+                                    item.setLike(lp.getTid() == 1);
+                                    Toast.makeText(this, lp.getTid() == 1 ? "点赞成功" : "取消点赞", Toast.LENGTH_SHORT).show();
+                                    adapter.notifyItemChanged(position);
+                                }}});});
+                    if (commitList.size()==0){
+                        Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+                    }
+                    recyclerView.setAdapter(adapter);}}});
     }
     //发送评论
     private void sentCom() {
+        s=true;
         TextView chatText= findViewById(R.id.chatMsg);
         String text=chatText.getText().toString();
         if (!(text + commit.getImg()).equals("")){
-            commit.setCom(text);
-            commit.setAid(aid);
+            commit com=new commit();
+            com.setCom(text);
+            com.setAid(aid);
             if (!Objects.equals(commit.getImg(), "")){
             url="/sentComImg";
             FileUploadTask fileUploadTask1 = new FileUploadTask(url,commit.getImg());
             fileUploadTask1.execute();
             String pro= mySql.getSharedPreferences("LocalState").getInt("uid", 1)+"---";
-            String con=new PackageHttp().changeFileName(commit.getImg(),pro,"comImg");
-            commit.setImg(con);}
+            String x=commit.getImg();
+            String con=new PackageHttp().changeFileName(x,pro,"comImg");
+            com.setImg(con);}
             url="/sentCom";
-            postJwt.sendPostRequest(url,commit, result -> {
+            postJwt.sendPostRequest(url,com, result -> {
                 // 处理返回的Result对象
                 if (result != null) {
                     if (result.iu!=0) {
@@ -244,6 +256,7 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
                         //刷新评论区
                         getCom();
                     }}});}
+        s=false;
     }
 
     //处理图片选择
@@ -280,6 +293,9 @@ public class showAct extends AppCompatActivity implements View.OnClickListener{
         aConAd adapter=new aConAd(showAct.this, R.layout.s_acon,aConList,-1);
         ListView listView=findViewById(R.id.actShow);
         listView.setAdapter(adapter);
+        if (aConList.size()==0){
+            Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+        }
         setHigh();
         act.setThing(1);//love
         getCom();

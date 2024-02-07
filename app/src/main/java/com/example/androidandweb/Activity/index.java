@@ -30,6 +30,7 @@ import com.example.androidandweb.adapter.actAdR;
 import com.example.androidandweb.adapter.chatListAd;
 import com.example.androidandweb.adapter.userAd;
 import com.example.androidandweb.adapter.videoAd;
+import com.example.androidandweb.http.ImageLoader;
 import com.example.androidandweb.http.PackageHttp;
 import com.example.androidandweb.http.postJwt;
 import com.example.androidandweb.http.getJwt;
@@ -55,7 +56,7 @@ public class index extends AppCompatActivity implements View.OnClickListener {
         super.onResume();
         // 在页面从后台返回前台时触发的操作
         // 例如，显示一个 Toast 消息
-        getUser();
+//        getUser();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +129,9 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                             Toast.makeText(index.this, "尚未收纳资源", Toast.LENGTH_SHORT).show();
                         }
                         videoAd adapter = new videoAd(index.this, R.layout.s_video, videoList);
+                        if (videoList.size()==0){
+                            Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+                        }
                         listView.setAdapter(adapter);
                         showS(listView,SVideo);
                         listView.setOnItemLongClickListener((parent, view, position, id) -> {
@@ -175,6 +179,9 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                         // 现在你可以使用userList了
                         // ...
                         userAd adapter=new userAd(index.this, R.layout.s_layout_user_show,userList);
+                        if (userList.size()==0){
+                            Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+                        }
                         listView.setAdapter(adapter);
                         listView.setOnItemClickListener((parent, view, position, id) -> {
                             user u= userList.get(position);
@@ -204,6 +211,9 @@ public class index extends AppCompatActivity implements View.OnClickListener {
                 List<chatList> chatList =new Gson().fromJson(new Gson().toJson(result.data), type);
                 chatListAd adapter=new chatListAd(this, R.layout.s_chat_list_show,chatList);
                 listView.setAdapter(adapter);
+                if (chatList.size()==0){
+                    Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+                }
                 listView.setOnItemClickListener((parent, view, position, id) -> {
                     chatList cl= chatList.get(position);
                     //跳转chatActivity页面

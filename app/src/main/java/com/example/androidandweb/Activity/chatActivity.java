@@ -1,7 +1,5 @@
 package com.example.androidandweb.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +11,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.example.androidandweb.O_solidObjects.chat;
-import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
 import com.example.androidandweb.O_solidObjects.simpleObjects.msg;
 import com.example.androidandweb.O_solidObjects.user;
 import com.example.androidandweb.R;
@@ -30,7 +29,7 @@ import java.util.List;
 
 public class chatActivity extends AppCompatActivity implements View.OnClickListener {
 
-    user you,me=new user();
+    user me=new user(),you=new user();
     String YouImg,MeImg;
     chat chat;
     @Override
@@ -115,7 +114,10 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
         ListView listView=findViewById(R.id.chatShow);
         listView.setVisibility(View.VISIBLE);
         findViewById(R.id.load).setVisibility(View.GONE);
-        listView.setAdapter(adapter);
+        if (msgList.size()==0){
+            Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+        }else{
+        listView.setAdapter(adapter);}
         int lastItem = adapter.getCount() - 1;
         if (lastItem >= 0) {
             listView.setSelection(lastItem);
@@ -142,11 +144,12 @@ public class chatActivity extends AppCompatActivity implements View.OnClickListe
             if (result != null) {
                 if(result.iu!=0){
                     String chat1= new Gson().toJson(result.data);
-                    chat =new Gson().fromJson(chat1,chat.class);}
+                    chat =new Gson().fromJson(chat1,chat.class);
+                    getUser();}
             }else {
                     Toast.makeText(chatActivity.this, "出错了", Toast.LENGTH_SHORT).show();
                 }
-            getUser();});}
+            });}
 
     private void youShow() {
         ImageView youImg =findViewById(R.id.youImger);

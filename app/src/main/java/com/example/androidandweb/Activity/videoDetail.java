@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.androidandweb.O_solidObjects.VSmail;
 import com.example.androidandweb.R;
 import com.example.androidandweb.adapter.VSmailAd;
+import com.example.androidandweb.http.ImageLoader;
 import com.example.androidandweb.http.PackageHttp;
 import com.example.androidandweb.http.postJwt;
 import com.google.common.reflect.TypeToken;
@@ -41,7 +42,7 @@ public class videoDetail extends AppCompatActivity implements View.OnClickListen
         super.onResume();
         // 在页面从后台返回前台时触发的操作
         // 例如，显示一个 Toast 消息
-        start();
+//        start();
     }
     @Override
     public void onClick(View v) {
@@ -63,8 +64,7 @@ if(v.getId()==R.id.addVSmall){
     public void start(){
         Intent intent=getIntent();
         vid=intent.getIntExtra("vid",1);
-        PackageHttp packageHttp = new PackageHttp();
-        url1=packageHttp.toImgUrl(intent.getStringExtra("img"));
+        url1=new PackageHttp().toImgUrl(intent.getStringExtra("img"));
         ImageView img=findViewById(R.id.VSimg);
         Glide.with(videoDetail.this).load(url1).circleCrop().into(img);
         TextView VSName=findViewById(R.id.VSname);
@@ -90,6 +90,9 @@ if(v.getId()==R.id.addVSmall){
                     Log.i("测试数据",VSmailList.toString());
                     VSmailAd adapter=new VSmailAd(videoDetail.this, R.layout.s_vsmail,VSmailList);
                     ListView listView=findViewById(R.id.VSmailShow);
+                    if (VSmailList.size()==0){
+                        Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+                    }
                     listView.setAdapter(adapter);
                     listView.setOnItemLongClickListener((parent, view, position, id) -> {
 

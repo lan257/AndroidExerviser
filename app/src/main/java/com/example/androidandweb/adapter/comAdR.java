@@ -52,7 +52,8 @@ public class comAdR extends RecyclerView.Adapter<comAdR.MyViewHolder> {
     public void onBindViewHolder(@NonNull comAdR.MyViewHolder holder, int position) {
         commit item = itemList.get(position);
         holder.nickname.setText(item.getU().getNickname());
-        holder.time.setText(new PackageHttp().formatTime(item.getTime()));
+        new PackageHttp();
+        holder.time.setText(PackageHttp.formatTime(item.getTime()));
         holder.loveNum.setText(item.getLove()+"");
         if(!Objects.equals(item.getCom(), "")){
             holder.com.setVisibility(View.VISIBLE);
@@ -62,10 +63,11 @@ public class comAdR extends RecyclerView.Adapter<comAdR.MyViewHolder> {
         //设置回复栏reply1,reply2,more
 
         //设置图片
-        new ImageLoader().loadOnlineImage(context, new PackageHttp().toImgUrl(item.getU().getImg()), holder.userImg);
+//        new ImageLoader().loadOnlineImage(context, new PackageHttp().toImgUrl(item.getU().getImg()), holder.userImg);
+        Glide.with(context).load(new PackageHttp().toImgUrl(item.getU().getImg())).circleCrop().into(holder.userImg);
         if (!Objects.equals(item.getImg(), "")){
             holder.comImg.setVisibility(View.VISIBLE);
-            Glide.with(context).load(new PackageHttp().toImgUrl(item.getImg())).circleCrop().into(holder.comImg);}
+            Glide.with(context).load(new PackageHttp().toImgUrl(item.getImg())).into(holder.comImg);}
         //设置点赞图片
         if (item.isLike()){holder.love.setImageResource(R.drawable.liked);}else {holder.love.setImageResource(R.drawable.like);}
         //为评论点赞

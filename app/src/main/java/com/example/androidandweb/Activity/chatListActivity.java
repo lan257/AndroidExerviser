@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.androidandweb.O_solidObjects.simpleObjects.Result;
 import com.example.androidandweb.O_solidObjects.simpleObjects.chatList;
@@ -30,7 +31,6 @@ public class chatListActivity extends AppCompatActivity {
         super.onResume();
         // 在页面从后台返回前台时触发的操作
         // 例如，显示一个 Toast 消息
-        goo();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,9 @@ public class chatListActivity extends AppCompatActivity {
                 chatListS =new Gson().fromJson(new Gson().toJson(result.data), type);
                 chatListAd adapter=new chatListAd(chatListActivity.this, R.layout.s_chat_list_show,chatListS);
                 ListView listView=findViewById(R.id.chatListShow);
+                if (chatListS.size()==0){
+                    Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+                }else{
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener((parent, view, position, id) -> {
 
@@ -71,7 +74,7 @@ public class chatListActivity extends AppCompatActivity {
                     //跳转chatActivity页面
                     Intent intent=new Intent(chatListActivity.this, chatActivity.class);
                     intent.putExtra("you",cl.getUser().getUid());
-                    startActivity(intent);});
+                    startActivity(intent);});}
                 }});}
 
         private void chatListShow(List<chatList> chatListS) {
@@ -79,6 +82,9 @@ public class chatListActivity extends AppCompatActivity {
         chatListAd adapter=new chatListAd(chatListActivity.this, R.layout.s_chat_list_show,chatListS);
         ListView listView=findViewById(R.id.chatListShow);
         listView.setAdapter(adapter);
+            if (chatListS.size()==0){
+                Toast.makeText(this, "暂无数据", Toast.LENGTH_SHORT).show();
+            }else{
         listView.setOnItemClickListener((parent, view, position, id) -> {
 
             chatList cl= chatListS.get(position);
@@ -87,6 +93,6 @@ public class chatListActivity extends AppCompatActivity {
             Log.i("你是谁？",""+cl);
             intent.putExtra("you",cl.getUser().getUid());
             startActivity(intent);
-        });
+        });}
     }
 }

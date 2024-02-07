@@ -6,9 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import androidx.annotation.Nullable;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -26,7 +24,6 @@ public class ImageLoader {
     @SuppressLint("CheckResult")
     public void loadOnlineImage(Context context, String imageUrl, View view) {
         RequestOptions requestOptions = new RequestOptions();
-//        requestOptions.centerCrop(); // 图片居中裁剪
         requestOptions.placeholder(R.drawable.no); // 加载过程中显示的占位图，可选
         requestOptions.error(R.drawable.no); // 加载失败时显示的图片，可选
 
