@@ -51,7 +51,8 @@ public class signIn extends AppCompatActivity implements View.OnClickListener{
         if(v.getId()==R.id.updateVid){
             TextView Vid=findViewById(R.id.textVid);
             String vid=Vid.getText().toString();
-            LocalState.putString("vid", vid);
+            String[] parts=vid.split("/");
+            LocalState.putString("vid", parts[0]);
             LocalState.apply();
             Toast.makeText(signIn.this, "更新成功", Toast.LENGTH_SHORT).show();
         }
