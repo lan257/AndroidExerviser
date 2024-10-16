@@ -51,8 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getId()==R.id.updateVid){
             TextView Vid=findViewById(R.id.textVid);
             String vid=Vid.getText().toString();
-            String[] parts=vid.split("/");
-            LocalState.putString("vid", parts[0]);
+//            String[] parts=vid.split("/");
+//            LocalState.putString("vid", parts[0]);
+            LocalState.putString("vid", vid);
             LocalState.apply();
             Toast.makeText(MainActivity.this, "更新成功", Toast.LENGTH_SHORT).show();
         }
