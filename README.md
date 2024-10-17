@@ -7,6 +7,12 @@
 android  
 http 
 
+## 展示
+![功能选择](imgShow/功能选择.jpg)  
+![首页问候](imgShow/首页问候.jpg) 
+![帖子展示](imgShow/帖子展示.jpg) 
+![在线聊天](imgShow/在线聊天.jpg) 
+
 ## 现状
 目前备考，准备秋招，故部署项目  
 
